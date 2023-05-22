@@ -1,0 +1,17 @@
+
+html {
+    font-size: 62.5%; /* équivalence "10px" sur l'élément racine */
+  }
+
+header {
+    margin-top: 2rem;
+}
+
+.logo__text{
+    font-size: 36px;
+    color: #d04f4f;
+
+};
+.logo__icon {
+    width: 50px;
+};
