@@ -50,4 +50,28 @@ getRecipes();
 
 
 
+//creer une bubble sort function
+// document.getElementById("sort").addEventListener("keyup", bubbleSort);
+
+
+
+
+//créer une autre version de tri en utilisant la programmation fonctionnelle avec les méthodes de l'objet array (foreach, filter, map, reduce 
+
+document.getElementById("sort").addEventListener("keyup", filterRecipes);
+
+function filterRecipes() {
+    const filter = document.getElementById("sort").value.toUpperCase();
+    const recipes = document.querySelectorAll(".recipe-card");
+    recipes.forEach((recipe) => {
+        const recipeTitle = recipe.querySelector(".recipe-card__title").textContent.toUpperCase();
+        if (recipeTitle.includes(filter)) {
+            recipe.style.display = "";
+        } else {
+            recipe.style.display = "none";
+        }
+    });
+}
+
+
 
