@@ -3,15 +3,70 @@ html {
     font-size: 62.5%; /* équivalence "10px" sur l'élément racine */
   }
 
-header {
-    margin-top: 2rem;
+.header-container{
+    width: 100%;
+    height: 400px;
+    background-image: url("../assets/images/bg.png");
+    background-position: right;
+    background-size: cover;
+    object-fit: cover;
+    
+   
+};
+/*positionner img-search dans l'input de recherche*/
+
+
+
+/*--------------------------*/
+/* SEARCH CRITERIA          */
+/*--------------------------*/
+
+.section-search-criteria{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
 }
 
-.logo__text{
-    font-size: 36px;
-    color: #d04f4f;
-
-};
-.logo__icon {
-    width: 50px;
-};
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .search-input {
+    padding: 5px;
+    width: 200px;
+  }
+  
+  .dropdown-toggle {
+    padding: 5px 10px;
+    background-color: #ccc;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 5px 0;
+    list-style-type: none;
+  }
+  
+  .dropdown-menu li {
+    padding: 10px;
+  }
+  
+  .dropdown-menu li a {
+    color: #000;
+    text-decoration: none;
+  }
+  
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
