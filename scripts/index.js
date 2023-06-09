@@ -45,53 +45,76 @@ async function getRecipes() {
         
     }
     );
-    //Fonction qui va récupérer les ingrédients, les appareils, les ustensiles et les afficher dans la liste à l'interieur de la div ul dropdown-menu.
-    const dropdownMenu = document.getElementById("ingredients-list");
-    const dropdownMenu2 = document.getElementById("appareils-list");
-    const dropdownMenu3 = document.getElementById("ustensiles-list");
+    //Fonction qui va récupérer les ingrédients, les appareils, les ustensiles et les afficher dans les fitres de la liste déroulante.
+
+
+const dropdownMenu = document.getElementById("ingredients-list");
+const dropdownMenu2 = document.getElementById("appareils-list");
+const dropdownMenu3 = document.getElementById("ustensiles-list");
 
 function getIfilterDropdownList() {
-    recipes.forEach((recipe) => {
-        recipe.ingredients.forEach((ingredient) => {
-            const ingredientName = ingredient.ingredient;
+  const uniqueIngredients = new Set();
+  const uniqueAppliances = new Set();
+  const uniqueUstensils = new Set();
 
-            const ingredientItem = document.createElement("li");
-            ingredientItem.classList.add("dropdown-item");
-            ingredientItem.textContent = ingredientName;
-            dropdownMenu.appendChild(ingredientItem);
-        });
+  recipes.forEach((recipe) => {
+    recipe.ingredients.forEach((ingredient) => {
+      const ingredientName = ingredient.ingredient.toLowerCase();
+      uniqueIngredients.add(ingredientName);
     });
-    recipes.forEach((recipe) => {
-        const recipeAppliance = recipe.appliance;
 
-        const applianceItem = document.createElement("li");
-        applianceItem.classList.add("dropdown-item");
-        applianceItem.textContent = recipeAppliance;
-        dropdownMenu2.appendChild(applianceItem);
-    });
-    recipes.forEach((recipe) => {
-        recipe.ustensils.forEach((ustensil) => {
-            const ustensilName = ustensil;
+    const recipeAppliance = recipe.appliance.toLowerCase();
+    uniqueAppliances.add(recipeAppliance);
 
-            const ustensilItem = document.createElement("li");
-            ustensilItem.classList.add("dropdown-item");
-            ustensilItem.textContent = ustensilName;
-            dropdownMenu3.appendChild(ustensilItem);
-        });
+    recipe.ustensils.forEach((ustensil) => {
+      const ustensilName = ustensil.toLowerCase();
+      uniqueUstensils.add(ustensilName);
     });
+  });
+
+  uniqueIngredients.forEach((ingredientName) => {
+    const ingredientItem = document.createElement("li");
+    ingredientItem.classList.add("dropdown-item");
+    ingredientItem.textContent = capitalize(ingredientName);
+    dropdownMenu.appendChild(ingredientItem);
+  });
+
+  uniqueAppliances.forEach((recipeAppliance) => {
+    const applianceItem = document.createElement("li");
+    applianceItem.classList.add("dropdown-item");
+    applianceItem.textContent = capitalize(recipeAppliance);
+    dropdownMenu2.appendChild(applianceItem);
+  });
+
+  uniqueUstensils.forEach((ustensilName) => {
+    const ustensilItem = document.createElement("li");
+    ustensilItem.classList.add("dropdown-item");
+    ustensilItem.textContent = capitalize(ustensilName);
+    dropdownMenu3.appendChild(ustensilItem);
+  });
 }
-getIfilterDropdownList();
 
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+getIfilterDropdownList();
 
 }
 
 getRecipes();
 
 
+//Fonction de recherche dans la liste déroulante des ingrédients.
 
 
 
-// Filtre des recettes
+
+
+
+
+
+// Filtre des recettes avec une boucle forEach
 // document.getElementById("search").addEventListener("keyup", function() {
 //     const filter = document.getElementById("search").value.toUpperCase();
 //     if (filter.length >= 3) {
@@ -128,6 +151,13 @@ getRecipes();
 
 // Recherche avec une boucle for
 
+
+const counterRecipe = document.getElementById("count-recipes");
+const recipes = document.querySelectorAll(".recipe-card");
+console.log(recipes.length);   //TODO: comprendre pourquoi la console affiche 0
+counterRecipe.textContent = `${recipes.length} recettes`;
+
+
 document.getElementById("search").addEventListener("keyup", debounce(filterRecipes, 300));
 
 let filteredRecipes = [];
@@ -135,18 +165,23 @@ let filteredRecipes = [];
 function filterRecipes() {
     const filter = document.getElementById("search").value.toUpperCase();
     const recipes = document.querySelectorAll(".recipe-card");
-
+    const counterRecipe = document.getElementById("count-recipes");
+   
+    
     if (filter.length < 4) {
-        resetRecipeDisplay();
+        counterRecipe.textContent = `${recipes.length} recettes`;
+        resetRecipeDisplay();  
         return;
     }
 
-    if (filter.length === 4) {
+    if (filter.length > 3) {
         filteredRecipes = Array.from(recipes);
     }
+  
+
+
 
     const matchedRecipes = [];
-    const counterRecipe = document.getElementById("count-recipes");
 
     for (let i = 0; i < filteredRecipes.length; i++) {
         const recipe = filteredRecipes[i];
@@ -165,9 +200,30 @@ function filterRecipes() {
     }
 
     filteredRecipes = matchedRecipes;
-   
-
+    displayCountRecipes(filteredRecipes.length);
 }
+
+
+function displayCountRecipes(count) {
+    const counterRecipe = document.getElementById("count-recipes");
+    const noResult = document.getElementById("no-result");
+    noResult.textContent = "";
+    if (count > 1) {
+        counterRecipe.textContent = `${count} recettes`;
+        return;
+    }
+    if (count === 1){
+        counterRecipe.textContent = `${count} recette`;
+        return;
+    }
+    if (count === 0) {
+        noResult.textContent = `Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
+    return;
+  }
+}
+
+
+
 
 function resetRecipeDisplay() {
     const recipes = document.querySelectorAll(".recipe-card");
@@ -184,7 +240,7 @@ function debounce(func, delay) {
         clearTimeout(timer);
         timer = setTimeout(func, delay);
     };
-    
+
 }
 
 
@@ -197,4 +253,20 @@ function debounce(func, delay) {
 
 
 
+    // Toggle active class on the dropdown
+  
+    const dropdowns = document.querySelectorAll('.dropdown2');
+dropdowns.forEach(function(dropdown) {
+  dropdown.addEventListener('click', function() {
+    dropdown.classList.toggle('active');
+  });
+});
 
+// Close dropdown when clicking outside
+window.addEventListener('click', function(e) {
+  dropdowns.forEach(function(dropdown) {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove('active');
+    }
+  });
+});

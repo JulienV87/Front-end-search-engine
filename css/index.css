@@ -3,6 +3,22 @@ html {
     font-size: 62.5%; /* équivalence "10px" sur l'élément racine */
   }
 
+
+
+
+  #count-recipes, h2  {
+    font-family: Anton;
+    font-weight: 400;
+  
+}
+  h2  {
+    font-family: Anton;
+    font-weight: 400;
+    font-size: 1,8rem;
+    padding-top: 1rem;
+  
+}
+
 .header-container{
     width: 100%;
     height: 400px;
@@ -10,63 +26,81 @@ html {
     background-position: right;
     background-size: cover;
     object-fit: cover;
-    
-   
-};
-/*positionner img-search dans l'input de recherche*/
-
-
-
-/*--------------------------*/
-/* SEARCH CRITERIA          */
-/*--------------------------*/
-
-.section-search-criteria{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
 }
 
-.dropdown {
+
+  .img-arrow2{
+    width: 10px;
+   }
+
+
+  .img-search{
+  
+    width: 30px;
+    position: relative;
+    left: -33px;
+   }
+
+/*--------------------------*/
+  /* Dropdown */
+  .dropdown2 {
     position: relative;
     display: inline-block;
   }
   
-  .search-input {
-    padding: 5px;
-    width: 200px;
-  }
-  
-  .dropdown-toggle {
-    padding: 5px 10px;
-    background-color: #ccc;
+  .dropdown2 .dropdown-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background-color: #fff;
+    color: #333;
     border: none;
-    color: #fff;
-    font-weight: bold;
     cursor: pointer;
+    border-radius: 5px;
   }
   
-  .dropdown-menu {
+  .dropdown2 .dropdown-button .arrow {
+    margin-left: 38px;
+    transition: transform 0.3s ease;
+  }
+  
+  .dropdown2.active .dropdown-button .arrow {
+    transform: rotate(180deg);
+  }
+
+
+  .dropdown2 .dropdown-list {
     display: none;
     position: absolute;
+    min-width: 120px;
     z-index: 1;
-    background-color: #f9f9f9;
-    min-width: 200px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 5px 0;
-    list-style-type: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
   }
   
-  .dropdown-menu li {
-    padding: 10px;
-  }
-  
-  .dropdown-menu li a {
-    color: #000;
-    text-decoration: none;
-  }
-  
-  .dropdown:hover .dropdown-menu {
+  .dropdown2.active .dropdown-list {
     display: block;
   }
+
+  .dropdown2.active .dropdown-menu {
+    display: block;
+  }
+
+  /* Dropdown Items */
+  /* .dropdown-list-item {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+  } */
+  
+  .dropdown-list-item:hover {
+    background-color: #f0f0f0;
+  }
+
+
+
+/*--------------------------*/
