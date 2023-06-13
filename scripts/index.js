@@ -7,19 +7,18 @@ async function getRecipes() {
 
     // Affichage des recettes
     const recipesContainer = document.getElementById("recipes-container");
-    
+    displayCountRecipes(recipes.length);
     recipes.forEach((recipe) => {
-        const recipeCard = document.createElement("div");
-        console.log(recipeCard.length)
-        recipeCard.classList.add("recipe-card","col-6","col-md-4","col-lg-3","col-xl-3","mx-3","my-3");
+        const recipeCard = document.createElement("div");        
+        recipeCard.classList.add("recipe-card","col-8","col-sm-6","col-md-4","mx-","my-3");
         recipeCard.innerHTML = `
-        <div style="height: 581px;" class=" card-header my-2 mx-2 shadow rounded-4 bg-white text-dark recipe-card__container overflow-hidden">
+        <div style="height: 540px;" class=" card-header my-2 mx-3 shadow rounded-4 bg-white text-dark recipe-card__container overflow-hidden">
             <div class="image-container position-relative">
                 <img class="card-img-top object-fit-cover" style="height:253px; rounded-top  overflow-hidden" src="./assets/images/${recipe.image}" alt="${recipe.name} style="height:280px;">
                 <p class="recipe-card__time position-absolute top-0 end-0 px-3 m-3 bg-warning rounded-5"> ${recipe.time}min</p>
             </div>
             <div class="card-body card-text px-3">
-                <h2 class="recipe-card__title my-4">${recipe.name}</h2>
+                <h2 class="recipe-card__title">${recipe.name}</h2>
                 
                 <h3 class="fw-700 fs-16 text-secondary">Recettes</h3>
                 <p style="height: 60px;" class="recipe-card__description col overflow-hidden">${recipe.description}</p>
@@ -46,7 +45,6 @@ async function getRecipes() {
     }
     );
     //Fonction qui va récupérer les ingrédients, les appareils, les ustensiles et les afficher dans les fitres de la liste déroulante.
-
 
 const dropdownMenu = document.getElementById("ingredients-list");
 const dropdownMenu2 = document.getElementById("appareils-list");
@@ -77,6 +75,10 @@ function getIfilterDropdownList() {
     ingredientItem.classList.add("dropdown-item");
     ingredientItem.textContent = capitalize(ingredientName);
     dropdownMenu.appendChild(ingredientItem);
+
+    ingredientItem.addEventListener('click', function() {
+      displayTag(ingredientName);
+    });
   });
 
   uniqueAppliances.forEach((recipeAppliance) => {
@@ -84,6 +86,10 @@ function getIfilterDropdownList() {
     applianceItem.classList.add("dropdown-item");
     applianceItem.textContent = capitalize(recipeAppliance);
     dropdownMenu2.appendChild(applianceItem);
+
+    applianceItem.addEventListener('click', function() {
+      displayTag(recipeAppliance);
+    });
   });
 
   uniqueUstensils.forEach((ustensilName) => {
@@ -91,6 +97,10 @@ function getIfilterDropdownList() {
     ustensilItem.classList.add("dropdown-item");
     ustensilItem.textContent = capitalize(ustensilName);
     dropdownMenu3.appendChild(ustensilItem);
+
+    ustensilItem.addEventListener('click', function() {
+      displayTag(ustensilName);
+    });
   });
 }
 
@@ -98,11 +108,28 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+function displayTag(text) {
+    const tagDisplay = document.getElementById("tag-display");
+  const tag = document.createElement("div");
+  tag.classList.add("tag");
+  tag.textContent = text;
+  const closeIcon = document.createElement("span");
+  closeIcon.classList.add("close-icon");
+  closeIcon.innerHTML = "&#x2716;";
+  tag.appendChild(closeIcon);
+  tagDisplay.appendChild(tag);
+
+  closeIcon.addEventListener('click', function() {
+    tagDisplay.removeChild(tag);
+  });
+}
+
 getIfilterDropdownList();
 
 }
 
 getRecipes();
+
 
 
 //Fonction de recherche dans la liste déroulante des ingrédients.
@@ -168,13 +195,13 @@ function filterRecipes() {
     const counterRecipe = document.getElementById("count-recipes");
    
     
-    if (filter.length < 4) {
+    if (filter.length < 3) {
         counterRecipe.textContent = `${recipes.length} recettes`;
         resetRecipeDisplay();  
         return;
     }
 
-    if (filter.length > 3) {
+    if (filter.length > 2) {
         filteredRecipes = Array.from(recipes);
     }
   
@@ -208,6 +235,7 @@ function displayCountRecipes(count) {
     const counterRecipe = document.getElementById("count-recipes");
     const noResult = document.getElementById("no-result");
     noResult.textContent = "";
+    counterRecipe.textContent = "";
     if (count > 1) {
         counterRecipe.textContent = `${count} recettes`;
         return;

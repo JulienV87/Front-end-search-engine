@@ -3,20 +3,41 @@ html {
     font-size: 62.5%; /* équivalence "10px" sur l'élément racine */
   }
 
+  .nav__container{
+    margin-top: 8rem;
+  }
 
-
-
-  #count-recipes, h2  {
+  #count-recipes{
     font-family: Anton;
     font-weight: 400;
-  
 }
-  h2  {
+  .h1-font{
     font-family: Anton;
     font-weight: 400;
-    font-size: 1,8rem;
+    font-size: 3rem;
+    line-height: 4.5rem;
+}
+ .recipe-card__title{
+    font-family: Anton;
+    font-weight: 400;
+    font-size: 1.8rem;
     padding-top: 1rem;
   
+}
+
+.container-recipes{
+  width: 90%;
+  height: auto;
+  margin : auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-main-input::-webkit-search-cancel-button{
+  margin-right: 40px;
+
 }
 
 .header-container{
@@ -26,6 +47,15 @@ html {
     background-position: right;
     background-size: cover;
     object-fit: cover;
+}
+
+.container-dropdown{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    /* background-color: orangered; */
 }
 
 
@@ -41,12 +71,52 @@ html {
     left: -33px;
    }
 
+   .img-searchList{
+    width: 10px;
+    position: relative;
+    left: -20px;
+   }
+
+  
+
 /*--------------------------*/
   /* Dropdown */
+
+
+  .section-search-criteria{
+    width: 90%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    margin: auto;
+    margin-top: 10px;
+  
+    /* background-color: orangered; */
+  }
+
+
   .dropdown2 {
     position: relative;
-    display: inline-block;
+    display: inline;
+    margin: 5px;
+    width: 100%;
+    border-radius: 5px;
+    background-color: #fff;
+    /* background-color: #cd1818; */
   }
+  .dropdown2.active {
+    
+    border-radius: 5px 5px 0px 0px;
+  
+  }
+
+  .dropdown-button {
+    width: 100%;
+    font-family: Manrope;
+    font-weight: 500;
+  }
+  
   
   .dropdown2 .dropdown-button {
     display: flex;
@@ -57,12 +127,13 @@ html {
     color: #333;
     border: none;
     cursor: pointer;
+    width: 100%;
     border-radius: 5px;
   }
-  
+
   .dropdown2 .dropdown-button .arrow {
     margin-left: 38px;
-    transition: transform 0.3s ease;
+    transition: transform 0.1s;
   }
   
   .dropdown2.active .dropdown-button .arrow {
@@ -71,36 +142,97 @@ html {
 
 
   .dropdown2 .dropdown-list {
+    width: 100% ;
     display: none;
-    position: absolute;
-    min-width: 120px;
+    /* position: absolute; */
+    /* min-width: 120px; */
     z-index: 1;
-    background-color: #fff;
-    border: 1px solid #ccc;
+    /* background-color: #fff; */
+    /* border: 1px solid #ccc; */
     border-top: none;
+   
   }
   
   .dropdown2.active .dropdown-list {
     display: block;
+    width: 100%;
+    /* margin: auto; */
+    /* background-color: aqua; */
   }
+
+
+
+  .dropdown2.active .dropdown-list .search-input{
+    display: inline;
+    margin-bottom: 15px;
+    margin-left: 20px;
+    border: 1px solid #C6C6C6;
+    outline: none;
+    width: 70%;
+    height: 25px;
+    /* background-color: red; */
+  }
+
+
 
   .dropdown2.active .dropdown-menu {
-    display: block;
+    display: inline-block;
+    width: 100%;
+    /* background-color:aqua; */
+    border: none;
+    border-radius: 0px 0px 5px 5px;
   }
 
+
+
   /* Dropdown Items */
-  /* .dropdown-list-item {
+  .dropdown2.active .dropdown-menu .dropdown-item {
     display: block;
-    padding: 8px 12px;
+    width: 100%;
+    font-family: Manrope;
+    font-weight: 400;
+    /* padding: 8px 12px; */
     text-decoration: none;
     color: #333;
     cursor: pointer;
-  } */
+  }
   
-  .dropdown-list-item:hover {
-    background-color: #f0f0f0;
+  .dropdown2.active .dropdown-menu .dropdown-item:hover {
+    background-color: #FFD15B;
+   
   }
 
 
-
 /*--------------------------*/
+.tag {
+  display: inline-block;
+  background-color:#FFD15Bf1;
+  color: #333;
+  padding: 10px;
+  padding-left: 5px;
+  padding-right: 25px;
+  border-radius: 10px;
+  margin-right: 7px;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.tag .close-icon {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+
+.tag-container {
+  width: 90%;
+  height: auto;
+  padding-top: 1rem;
+  margin: auto;
+  /* background-color: orange; */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
