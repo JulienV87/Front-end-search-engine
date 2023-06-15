@@ -17,12 +17,21 @@ html {
     font-size: 3rem;
     line-height: 4.5rem;
 }
+
  .recipe-card__title{
     font-family: Anton;
     font-weight: 400;
     font-size: 1.8rem;
-    padding-top: 1rem;
-  
+    padding-top: 2rem;
+}
+
+.h3-title {
+    font-family: Manrope;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #7A7A7A;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .container-recipes{
@@ -37,7 +46,6 @@ html {
 
 .custom-main-input::-webkit-search-cancel-button{
   margin-right: 40px;
-
 }
 
 .header-container{
@@ -58,11 +66,9 @@ html {
     /* background-color: orangered; */
 }
 
-
   .img-arrow2{
     width: 10px;
    }
-
 
   .img-search{
   
@@ -77,11 +83,8 @@ html {
     left: -20px;
    }
 
-  
-
 /*--------------------------*/
   /* Dropdown */
-
 
   .section-search-criteria{
     width: 90%;
@@ -91,10 +94,8 @@ html {
     justify-content:space-between;
     margin: auto;
     margin-top: 10px;
-  
     /* background-color: orangered; */
   }
-
 
   .dropdown2 {
     position: relative;
@@ -105,10 +106,9 @@ html {
     background-color: #fff;
     /* background-color: #cd1818; */
   }
+
   .dropdown2.active {
-    
     border-radius: 5px 5px 0px 0px;
-  
   }
 
   .dropdown-button {
@@ -116,7 +116,6 @@ html {
     font-family: Manrope;
     font-weight: 500;
   }
-  
   
   .dropdown2 .dropdown-button {
     display: flex;
@@ -172,6 +171,11 @@ html {
     height: 25px;
     /* background-color: red; */
   }
+
+  .search-input::-webkit-search-cancel-button{
+    margin-right: 20px;
+  }
+  
 
 
 
