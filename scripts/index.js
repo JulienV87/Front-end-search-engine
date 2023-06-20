@@ -10,9 +10,9 @@ async function getRecipes() {
     displayCountRecipes(recipes.length);
     recipes.forEach((recipe) => {
         const recipeCard = document.createElement("div");        
-        recipeCard.classList.add("recipe-card","col-8","col-sm-6","col-md-4","mx-","my-3");
+        recipeCard.classList.add("recipe-card","col-4","my-3");
         recipeCard.innerHTML = `
-        <div style="height: 565px;" class=" card-header my-2 mx-3 shadow rounded-4 bg-white text-dark recipe-card__container overflow-hidden">
+        <div style="height: 565px; width: 90%" class="card-header my-2 mx-3 shadow rounded-4 bg-white text-dark recipe-card__container overflow-hidden">
             <div class="image-container position-relative">
                 <img class="card-img-top object-fit-cover" style="height:253px; rounded-top  overflow-hidden" src="./assets/images/${recipe.image}" alt="${recipe.name} style="height:280px;">
                 <p class="recipe-card__time position-absolute top-0 end-0 px-3 m-3 bg-warning rounded-5"> ${recipe.time}min</p>
@@ -23,7 +23,7 @@ async function getRecipes() {
                 <h3 class="h3-title">Recettes</h3>
                 <p style="height: 60px;" class="recipe-card__description col overflow-hidden">${recipe.description}</p>
                 <h3 class="h3-title">Ingrédients</h3>
-                <ul class="recipe-card__ingredients col list-unstyled">
+                <ul class="recipe-card__ingredients col list-unstyled ingredients-font-cards">
                     ${recipe.ingredients
                         .map((ingredient) => {
                             if (ingredient.quantity === undefined) {
@@ -32,14 +32,18 @@ async function getRecipes() {
                             if (ingredient.unit === undefined) {
                                 ingredient.unit = "";
                             }
-                            return `<li>${ingredient.ingredient} : ${ingredient.quantity} ${ingredient.unit}</li>`;
+                            return `<li>${ingredient.ingredient} : <span class="ingredients-unit-font">${ingredient.quantity} ${ingredient.unit}</span></li>`;
                         })
                         .join("")}
                 </ul>
-                
+                <span class="recipe-card__appliance">${recipe.appliance}</span>
+                <span class="recipe-card__ustensils">${recipe.ustensils}</span>
+                <span class="recipe-card__ingredient">${recipe.ingredients.ingredient}</span>
+                    
             </div>
         </div>
         `; 
+
         recipesContainer.appendChild(recipeCard);
         
     }
@@ -80,7 +84,8 @@ function getIfilterDropdownList() {
     dropdownMenu.appendChild(ingredientItem);
 
     ingredientItem.addEventListener('click', function() {
-      displayTag(ingredientName);
+        displayTag(ingredientName);
+       
     });
   });
 
@@ -103,11 +108,12 @@ function getIfilterDropdownList() {
 
     ustensilItem.addEventListener('click', function() {
       displayTag(ustensilName);
-      filterRecipes(ustensilName);
+    //   filterRecipes(ustensilName);
     });
   });
 
 }
+
 
 //Fonction de recherche dans les dropdownMenus
 const searchInputs = document.querySelectorAll(".search-input");
@@ -115,13 +121,10 @@ const searchInputs = document.querySelectorAll(".search-input");
 searchInputs.forEach((searchInput) => {
     searchInput.addEventListener("input", function() {
         const filter = searchInput.value.toUpperCase();
-        console.log(filter); //TEST
         const dropdownItems = document.querySelectorAll(".dropdown-item");
-        console.log(dropdownItems); //TEST
 
         dropdownItems.forEach((dropdownItem) => {
             const dropdownItemText = dropdownItem.textContent.toUpperCase();
-            console.log(dropdownItemText); //TEST
             if (dropdownItemText.includes(filter)) {
                 dropdownItem.style.display = "";
             } else {
@@ -130,6 +133,8 @@ searchInputs.forEach((searchInput) => {
         });
     });
 });
+
+
 
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -142,16 +147,17 @@ function displayTag(text) {
   tag.classList.add("tag");
   tag.textContent = capitalize(text);
   
-  searchInput.value = tag.textContent;
-    filterRecipes();
-  searchInput.value = "";
-  console.log(tag.textContent); //TEST
-
+  if (searchInput.value = tag.textContent){//TODO 
+      filterRecipes();
+      searchInput.value = "";
+    }
+  
   const closeIcon = document.createElement("span");
   closeIcon.classList.add("close-icon");
   closeIcon.innerHTML = "&#x2716;";
   tag.appendChild(closeIcon);
   tagDisplay.appendChild(tag);
+
 
   closeIcon.addEventListener('click', function() {
     tagDisplay.removeChild(tag);
@@ -159,6 +165,7 @@ function displayTag(text) {
     
     resetRecipeDisplay();
     displayCountRecipes(recipes.length);
+   
   });
 }
 
@@ -167,53 +174,6 @@ getIfilterDropdownList();
 }
 
 getRecipes();
-
-
-
-// Filtre des recettes avec une boucle forEach
-// document.getElementById("search").addEventListener("keyup", function() {
-//     const filter = document.getElementById("search").value.toUpperCase();
-//     if (filter.length >= 3) {
-//         filterRecipes(filter);
-//     } else {
-//         // Réinitialiser l'affichage des recettes si le nombre de caractères est inférieur à 3
-//         resetRecipeDisplay();
-//     }
-// });
-
-// function filterRecipes(filter) {
-//     const recipes = document.querySelectorAll(".recipe-card");
-//     recipes.forEach((recipe) => {
-//         const recipeTitle = recipe.querySelector(".recipe-card__title").textContent.toUpperCase();
-//         const recipeIngredients = recipe.querySelector(".recipe-card__ingredients").textContent.toUpperCase();
-//         const recipeDescription = recipe.querySelector(".recipe-card__description").textContent.toUpperCase();
-//         const recipeTime = recipe.querySelector(".recipe-card__time").textContent.toUpperCase();
-
-//         if (recipeTitle.includes(filter) || recipeIngredients.includes(filter) || recipeDescription.includes(filter) || recipeTime.includes(filter)) {
-//             recipe.style.display = "";
-//         } else {
-//             recipe.style.display = "none";
-//         }
-//     });
-// }
-
-// function resetRecipeDisplay() {
-//     const recipes = document.querySelectorAll(".recipe-card");
-//     recipes.forEach((recipe) => {
-//         recipe.style.display = "";
-//     });
-// }
-
-//Créer une fonction de recherche avec une boucle for en utilisant les données récupérées depuis le fichier JSON comme par exemple recipe.ingredients, recipe.appliance, recipe.ustensils, recipe.description, recipe.time, recipe.name, recipe.quantity, recipe.unit. utiliser les données récuperer par la fonction getRecipes().
-
-
-
-
-
-
-
-
-
 
 // Recherche avec une boucle for
 
@@ -253,15 +213,20 @@ function filterRecipes() {
         const recipeIngredients = recipe.querySelector(".recipe-card__ingredients").textContent.toUpperCase();
         const recipeDescription = recipe.querySelector(".recipe-card__description").textContent.toUpperCase();
         const recipeTime = recipe.querySelector(".recipe-card__time").textContent.toUpperCase();
+        const recipeAppliance = recipe.querySelector(".recipe-card__appliance").textContent.toUpperCase();
+        const recipeUstensils = recipe.querySelector(".recipe-card__ustensils").textContent.toUpperCase();
 
-        if (recipeTitle.includes(filter) || recipeIngredients.includes(filter) || recipeDescription.includes(filter) || recipeTime.includes(filter)) {
+        if (recipeTitle.includes(filter) || recipeIngredients.includes(filter) || recipeDescription.includes(filter) || recipeTime.includes(filter) || recipeAppliance.includes(filter) || recipeUstensils.includes(filter)) {
+    
             matchedRecipes.push(recipe);
             recipe.style.display = "";
-
+            
+          
         } else {
             recipe.style.display = "none";
         }
     }
+
 
     filteredRecipes = matchedRecipes;
     displayCountRecipes(filteredRecipes.length);
@@ -274,10 +239,15 @@ function displayCountRecipes(count) {
     const search = document.getElementById("search");
     noResult.textContent = "";
     counterRecipe.textContent = "";
+    if (count > 1 && count < 10) {
+        counterRecipe.textContent = `0${count} recettes`;
+        return;
+    }
     if (count > 1) {
         counterRecipe.textContent = `${count} recettes`;
         return;
     }
+
     if (count === 1){
         counterRecipe.textContent = `${count} recette`;
         return;
@@ -308,8 +278,6 @@ function debounce(func, delay) {
 }
 
 
-
-
     // Toggle active class on the dropdown when clicking and keep it open when clicking inside the search input.
   
     const dropdowns = document.querySelectorAll('.dropdown2');
@@ -337,4 +305,5 @@ function debounce(func, delay) {
             }
         });
     });
+    
     

@@ -10,6 +10,8 @@ html {
   #count-recipes{
     font-family: Anton;
     font-weight: 400;
+    font-size: 1.6rem;
+
 }
   .h1-font{
     font-family: Anton;
@@ -33,9 +35,22 @@ html {
     margin-top: 20px;
     margin-bottom: 10px;
 }
+.ingredients-font-cards,.recipe-card__description{
+  font-family: Manrope, sans-serif;
+  font-weight: 500;
+  font-size: 1.0rem;
+}
+
+.ingredients-unit-font{
+  font-family: Manrope, sans-serif;
+  font-weight: 400;
+  font-size: 1.0rem;
+  color: #7A7A7A;
+}
+
 
 .container-recipes{
-  width: 90%;
+  width: 95%;
   height: auto;
   margin : auto;
   display: flex;
@@ -46,6 +61,11 @@ html {
 
 .custom-main-input::-webkit-search-cancel-button{
   margin-right: 40px;
+}
+
+.custom-main-input{
+  font-size: 1.4rem!important;
+  font-family: Manrope!important;
 }
 
 .header-container{
@@ -62,7 +82,7 @@ html {
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     /* background-color: orangered; */
 }
 
@@ -78,22 +98,29 @@ html {
    }
 
    .img-searchList{
-    width: 10px;
+    width: 12px;
+    padding-bottom: 2px;
     position: relative;
-    left: -20px;
+    margin-left: -22px;
+    align-items: center;
+   }
+
+   .recipe-card__appliance, .recipe-card__ingredient, .recipe-card__ustensils{
+    display: none;
    }
 
 /*--------------------------*/
   /* Dropdown */
 
   .section-search-criteria{
-    width: 90%;
+    width: 95%;
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content:space-between;
+    justify-content: space-between;
     margin: auto;
     margin-top: 10px;
+  
     /* background-color: orangered; */
   }
 
@@ -101,7 +128,7 @@ html {
     position: relative;
     display: inline;
     margin: 5px;
-    width: 100%;
+    width: 200px;
     border-radius: 5px;
     background-color: #fff;
     /* background-color: #cd1818; */
@@ -124,6 +151,7 @@ html {
     padding: 8px 12px;
     background-color: #fff;
     color: #333;
+    font-size: 1.4rem;
     border: none;
     cursor: pointer;
     width: 100%;
@@ -131,8 +159,8 @@ html {
   }
 
   .dropdown2 .dropdown-button .arrow {
-    margin-left: 38px;
-    transition: transform 0.1s;
+    transition: transform ease-in-out;
+   
   }
   
   .dropdown2.active .dropdown-button .arrow {
@@ -164,46 +192,48 @@ html {
   .dropdown2.active .dropdown-list .search-input{
     display: inline;
     margin-bottom: 15px;
-    margin-left: 20px;
+    margin-left: 5px;
     border: 1px solid #C6C6C6;
     outline: none;
-    width: 70%;
+    width: 90%;
     height: 25px;
+    font-family: Manrope, sans-serif;
+    font-weight: 400;
+    font-size: 1.4rem;
     /* background-color: red; */
   }
 
   .search-input::-webkit-search-cancel-button{
-    margin-right: 20px;
+    margin-right: 24px;
   }
   
 
-
-
   .dropdown2.active .dropdown-menu {
     display: inline-block;
-    width: 100%;
-    /* background-color:aqua; */
     border: none;
     border-radius: 0px 0px 5px 5px;
+    width: 100%;
   }
-
-
 
   /* Dropdown Items */
   .dropdown2.active .dropdown-menu .dropdown-item {
     display: block;
-    width: 100%;
+    width: auto;
     font-family: Manrope;
     font-weight: 400;
+    font-size: 1.4rem;
     /* padding: 8px 12px; */
     text-decoration: none;
     color: #333;
     cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   
   .dropdown2.active .dropdown-menu .dropdown-item:hover {
     background-color: #FFD15B;
-   
+    width: 100%;
   }
 
 
@@ -212,6 +242,9 @@ html {
   display: inline-block;
   background-color:#FFD15Bf1;
   color: #333;
+  font-family: Manrope;
+  font-weight: 400;
+  font-size: 1.4rem;
   padding: 10px;
   padding-left: 5px;
   padding-right: 25px;
