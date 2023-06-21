@@ -110,7 +110,9 @@ function getIfilterDropdownList() {
 }
 
 //Fonction de recherche dans les dropdownMenus
+function filterDropdownList() {
 const searchInputs = document.querySelectorAll(".search-input");
+
 
 searchInputs.forEach((searchInput) => {
     searchInput.addEventListener("input", function() {
@@ -130,21 +132,39 @@ searchInputs.forEach((searchInput) => {
         });
     });
 });
+}
+
+filterDropdownList();
+
+
 
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 function displayTag(text) {
-  const searchInput = document.getElementById("search");
+  const mainSearchInput = document.getElementById("search");
+  const searchInputs = document.querySelectorAll(".search-input");
+  const dropdownItems = document.querySelectorAll(".dropdown-item");
   const tagDisplay = document.getElementById("tag-display");
   const tag = document.createElement("div");
   tag.classList.add("tag");
   tag.textContent = capitalize(text);
   
-  searchInput.value = tag.textContent;
+  mainSearchInput .value = tag.textContent;
     filterRecipes();
-  searchInput.value = "";
+    mainSearchInput.value = "";
+
+    searchInputs.forEach((searchInput) => {//ici
+    
+        searchInput.value = "";
+    });
+
+    dropdownItems.forEach((dropdownItem) => {
+        dropdownItem.style.display = "";
+    });
+
+    getIfilterDropdownList()
   console.log(tag.textContent); //TEST
 
   const closeIcon = document.createElement("span");
@@ -314,15 +334,25 @@ function debounce(func, delay) {
   
     const dropdowns = document.querySelectorAll('.dropdown2');
     const searchInput = document.querySelectorAll('.search-input');
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    console.log(dropdownItems); //TEST
   
+    dropdownItems.innerHTML = "";
     
     dropdowns.forEach(function(dropdown) {
         dropdown.addEventListener('click', function() {
             dropdown.classList.toggle('active');
-            
-        });
-    });
 
+
+        
+    }
+    );
+    });
+  
+
+
+
+  
     searchInput.forEach(function(input) {
         input.addEventListener('click', function(e) {
             e.stopPropagation();
