@@ -142,40 +142,54 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-function displayTag(text) {
-  const mainSearchInput = document.getElementById("search");
-  const searchInputs = document.querySelectorAll(".search-input");
-  const dropdownItems = document.querySelectorAll(".dropdown-item");
-  const tagDisplay = document.getElementById("tag-display");
-  const tag = document.createElement("div");
-  tag.classList.add("tag");
-  tag.textContent = capitalize(text);
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
   
-  mainSearchInput .value = tag.textContent;
-    filterRecipes();
-  searchInput.value = "";
-  console.log(tag.textContent); //TEST
-
-  const closeIcon = document.createElement("span");
-  closeIcon.classList.add("close-icon");
-  closeIcon.innerHTML = "&#x2716;";
-  tag.appendChild(closeIcon);
-  tagDisplay.appendChild(tag);
-
-  closeIcon.addEventListener('click', function() {
-    tagDisplay.removeChild(tag);
-
+  function displayTag(text) {
+    const mainSearchInput = document.getElementById("search");
+    const searchInputs = document.querySelectorAll(".search-input");
+    const dropdownItems = document.querySelectorAll(".dropdown-item");
+    const tagDisplay = document.getElementById("tag-display");
+    const tag = document.createElement("div");
+    tag.classList.add("tag");
+    tag.textContent = capitalize(text);
     
-    resetRecipeDisplay();
-    displayCountRecipes(recipes.length);
-  });
-}
-
-getIfilterDropdownList();
-
-}
-
-getRecipes();
+    mainSearchInput .value = tag.textContent;
+      filterRecipes();
+      mainSearchInput.value = "";
+  
+      searchInputs.forEach((searchInput) => {//ici
+          searchInput.value = "";
+      });
+  
+      dropdownItems.forEach((dropdownItem) => {
+          dropdownItem.style.display = "";
+      });
+  
+    
+    console.log(tag.textContent); //TEST
+  
+    const closeIcon = document.createElement("span");
+    closeIcon.classList.add("close-icon");
+    closeIcon.innerHTML = "&#x2716;";
+    tag.appendChild(closeIcon);
+    tagDisplay.appendChild(tag);
+  
+    closeIcon.addEventListener('click', function() {
+      tagDisplay.removeChild(tag);
+  
+      
+      resetRecipeDisplay();
+      displayCountRecipes(recipes.length);
+    });
+  }
+  
+  getIfilterDropdownList();
+  
+  }
+  
+  getRecipes();
 
 
 
