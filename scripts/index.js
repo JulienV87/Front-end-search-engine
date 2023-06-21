@@ -153,18 +153,7 @@ function displayTag(text) {
   
   mainSearchInput .value = tag.textContent;
     filterRecipes();
-    mainSearchInput.value = "";
-
-    searchInputs.forEach((searchInput) => {//ici
-    
-        searchInput.value = "";
-    });
-
-    dropdownItems.forEach((dropdownItem) => {
-        dropdownItem.style.display = "";
-    });
-
-    getIfilterDropdownList()
+  searchInput.value = "";
   console.log(tag.textContent); //TEST
 
   const closeIcon = document.createElement("span");
