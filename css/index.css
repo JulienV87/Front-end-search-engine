@@ -105,8 +105,8 @@ html {
     align-items: center;
    }
 
-   .recipe-card__appliance, .recipe-card__ingredient, .recipe-card__ustensils{
-    display: none;
+   .recipe-card__appliance, .ingredient-list, .recipe-card__ustensils{
+    /* display: none; */
    }
 
 /*--------------------------*/
