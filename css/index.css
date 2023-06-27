@@ -105,7 +105,7 @@ html {
    }
 
    .recipe-card__appliance, .ingredient-list, .recipe-card__ustensils{
-    /* display: none; */
+    display: none;
    }
 
 /*--------------------------*/

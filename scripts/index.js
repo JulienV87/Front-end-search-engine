@@ -15,6 +15,7 @@ async function getRecipesInit() {
 
     var { recipes } = data;
 
+
     const ingredientsList = [];
     recipes[0].ingredients.forEach((ingredient) => {
         ingredientsList.push(ingredient.ingredient);
@@ -64,74 +65,83 @@ async function getRecipesInit() {
         
     }
     );
+  
 
 
-
-    //Fonction qui va récupérer les ingrédients, les appareils, les ustensiles et les afficher dans les fitres de la liste déroulante.
-
-const dropdownMenu = document.getElementById("ingredients-list");
-const dropdownMenu2 = document.getElementById("appareils-list");
-const dropdownMenu3 = document.getElementById("ustensiles-list");
-
-
-async function getFilterDropdownList(recipes) {
-  const uniqueIngredients = new Set(); //TODO à retourner
-  const uniqueAppliances = new Set(); //TODO à retourner
-  const uniqueUstensils = new Set(); //TODO à retourner
-
-  recipes.forEach((recipe) => {
-    recipe.ingredients.forEach((ingredient) => {
-      const ingredientName = ingredient.ingredient.toLowerCase();
-      uniqueIngredients.add(ingredientName);
+function getUniqueElementsForDropdownList(recipesCards) {
+    const uniqueIngredients = new Set();
+    const uniqueAppliances = new Set();
+    const uniqueUstensils = new Set();
+  
+    recipesCards.forEach((recipe) => {
+      recipe.ingredients.forEach((ingredient) => {
+        const ingredientName = ingredient.ingredient.toLowerCase();
+        uniqueIngredients.add(ingredientName);
+      });
+  
+      const recipeAppliance = recipe.appliance.toLowerCase();
+      uniqueAppliances.add(recipeAppliance);
+  
+      recipe.ustensils.forEach((ustensil) => {
+        const ustensilName = ustensil.toLowerCase();
+        uniqueUstensils.add(ustensilName);
+      });
     });
+  
+    return {
+      ingredients: Array.from(uniqueIngredients),
+      appliances: Array.from(uniqueAppliances),
+      ustensils: Array.from(uniqueUstensils)
+    };
+  }
+  console.log(getUniqueElementsForDropdownList(recipes)); //TEST
 
-    const recipeAppliance = recipe.appliance.toLowerCase();
-    uniqueAppliances.add(recipeAppliance);
-
-    recipe.ustensils.forEach((ustensil) => {
-      const ustensilName = ustensil.toLowerCase();
-      uniqueUstensils.add(ustensilName);
+  
+ function createDOMElements(uniqueElements) {
+    const dropdownMenu = document.getElementById("ingredients-list");
+    const dropdownMenu2 = document.getElementById("appareils-list");
+    const dropdownMenu3 = document.getElementById("ustensiles-list");
+  
+    uniqueElements.ingredients.forEach((ingredientName) => {
+      const ingredientItem = document.createElement("li");
+      ingredientItem.classList.add("dropdown-item");
+      ingredientItem.textContent = capitalize(ingredientName);
+      dropdownMenu.appendChild(ingredientItem);
+  
+      ingredientItem.addEventListener("click", async function () {
+        await displayTag(ingredientName);
+      });
     });
-  });
-
-  uniqueIngredients.forEach((ingredientName) => {
-    const ingredientItem = document.createElement("li");
-    ingredientItem.classList.add("dropdown-item");
-    ingredientItem.textContent = capitalize(ingredientName);
-    dropdownMenu.appendChild(ingredientItem);
-
-    ingredientItem.addEventListener('click', async function() {
-      await displayTag(ingredientName);
+  
+    uniqueElements.appliances.forEach((recipeAppliance) => {
+      const applianceItem = document.createElement("li");
+      applianceItem.classList.add("dropdown-item");
+      applianceItem.textContent = capitalize(recipeAppliance);
+      dropdownMenu2.appendChild(applianceItem);
+  
+      applianceItem.addEventListener("click", async function () {
+        await displayTag(recipeAppliance);
+      });
     });
-  });
-
-  uniqueAppliances.forEach((recipeAppliance) => {
-    const applianceItem = document.createElement("li");
-    applianceItem.classList.add("dropdown-item");
-    applianceItem.textContent = capitalize(recipeAppliance);//TODO textcontent à retirer
-    dropdownMenu2.appendChild(applianceItem);
-
-    applianceItem.addEventListener('click', async function() {
-      await displayTag(recipeAppliance);
+  
+    uniqueElements.ustensils.forEach((ustensilName) => {
+      const ustensilItem = document.createElement("li");
+      ustensilItem.classList.add("dropdown-item");
+      ustensilItem.textContent = capitalize(ustensilName);
+      dropdownMenu3.appendChild(ustensilItem);
+  
+      ustensilItem.addEventListener("click", async function () {
+        await displayTag(ustensilName);
+      });
     });
-  });
+  }
 
-  uniqueUstensils.forEach((ustensilName) => {
-    const ustensilItem = document.createElement("li");
-    ustensilItem.classList.add("dropdown-item");
-    ustensilItem.textContent = capitalize(ustensilName);
-    dropdownMenu3.appendChild(ustensilItem);
-
-    ustensilItem.addEventListener('click', async function() {
-      await displayTag(ustensilName);
-   
-    });
+const uniqueElements = getUniqueElementsForDropdownList(recipes);
+createDOMElements(uniqueElements);
 
 
-  });
 
 
-}
 
 //Fonction de recherche dans les dropdownMenus
 function filterDropdownList() {
@@ -141,13 +151,12 @@ const searchInputs = document.querySelectorAll(".search-input");
 searchInputs.forEach((searchInput) => {
     searchInput.addEventListener("input", function() {
         const filter = searchInput.value.toUpperCase();
-        console.log(filter); //TEST
+
         const dropdownItems = document.querySelectorAll(".dropdown-item");
-        console.log(dropdownItems); //TEST
+
 
         dropdownItems.forEach((dropdownItem) => {
             const dropdownItemText = dropdownItem.textContent.toUpperCase();
-            console.log(dropdownItemText); //TEST
             if (dropdownItemText.includes(filter)) {
                 dropdownItem.style.display = "";
             } else {
@@ -189,9 +198,6 @@ async function displayTag(text) {
         dropdownItem.style.display = "";
     });
 
-  
-  console.log(tag.textContent); //TEST
-
   const closeIcon = document.createElement("span");
   closeIcon.classList.add("close-icon");
   closeIcon.innerHTML = "&#x2716;";
@@ -202,12 +208,12 @@ async function displayTag(text) {
     tagDisplay.removeChild(tag);
     displayCountRecipes(recipes.length);
     resetRecipeDisplay();
-    counterRecipe.textContent = `${matchedRecipes.length} recettes`;
+    // counterRecipe.textContent = `${matchedRecipes.length} recettes`;
     
   });
 }
 
-getFilterDropdownList();
+// getUniqueElementsForDropdownList(recipes);
 
 }
 
@@ -251,74 +257,56 @@ getRecipesInit();
 
 
 
-// Recherche avec une boucle for
+// fonction de Recherche avec une boucle for en utilisant les données du fichier JSON.
 
-
-const counterRecipe = document.getElementById("count-recipes");
-const recipes = document.querySelectorAll(".recipe-card");
-counterRecipe.textContent = `${recipes.length} recettes`;
-const tagDisplay = document.getElementById("tag-display");
-
-
-document.getElementById("search").addEventListener("input", debounce(filterRecipes, 300));
-
-let filteredRecipes = [];
-
-async function filterRecipes() {
-    const recipesFromDataBase = await getRecipesOnDemand();
-    const mainSearchInput = document.getElementById("search").value.toUpperCase();
-
-
-    const recipesFromPage = document.querySelectorAll(".recipe-card");
-    const counterRecipe = document.getElementById("count-recipes");
-    
-    if (mainSearchInput.length < 3) {
-        counterRecipe.textContent = `${recipesFromPage.length} recettes`;
-        resetRecipeDisplay();  
-        return;
+document.getElementById("search").addEventListener("input", debounce(async function() {
+    const filter = document.getElementById("search").value.toUpperCase();
+    if (filter.length >= 3) {
+        await filterRecipes(filter);
+    } else {
+        // Réinitialiser l'affichage des recettes si le nombre de caractères est inférieur à 3
+        resetRecipeDisplay();
     }
+}, 500));
 
-    if (mainSearchInput.length > 2) {
-        filteredRecipes = Array.from(recipesFromPage);
-    }
-
-   
+async function filterRecipes(filter) {
+    const recipes = await getRecipesOnDemand();
     const matchedRecipes = [];
+    recipes.forEach((recipe) => {
+        const recipeTitle = recipe.name.toUpperCase();
+        const recipeIngredients = recipe.ingredients.map((ingredient) => ingredient.ingredient.toUpperCase()).join(" ");
+        const recipeDescription = recipe.description.toUpperCase();
+        const recipeTime = recipe.time.toString().toUpperCase();
+        const recipeAppliance = recipe.appliance.toUpperCase();
+        const recipeUstensils = recipe.ustensils.map((ustensil) => ustensil.toUpperCase()).join(" ");
 
-    for (let i = 0; i < filteredRecipes.length; i++) {
-         
-        const recipe = filteredRecipes[i];
-
-        //retrieve data from the recipe json file
-        const recipeTitle = recipesFromDataBase[i].name.toUpperCase();
-
-        const recipeIngredients = recipesFromDataBase[i].ingredients.map((ingredient) => {
-            if (ingredient.quantity === undefined) {
-                return ingredient.ingredient.toUpperCase();
-            }
-            if (ingredient.unit === undefined) {
-                ingredient.unit = "";
-            }
-            return `${ingredient.ingredient.toUpperCase()} : ${ingredient.quantity} ${ingredient.unit}`;
-        }).join("");
-
-        const recipeDescription = recipesFromDataBase[i].description.toUpperCase();
-        const recipeTime = recipesFromDataBase[i].time.toString().toUpperCase();
-        const recipeAppliance = recipesFromDataBase[i].appliance.toUpperCase();
-        const recipeUstensils = recipesFromDataBase[i].ustensils.map((ustensil) => ustensil.toUpperCase()).join(""); 
-
-        if (recipeTitle.includes(mainSearchInput) || recipeIngredients.includes(mainSearchInput) || recipeDescription.includes(mainSearchInput) || recipeTime.includes(mainSearchInput) || recipeAppliance.includes(mainSearchInput) || recipeUstensils.includes(mainSearchInput)) {
+        if (recipeTitle.includes(filter) || recipeIngredients.includes(filter) || recipeDescription.includes(filter) || recipeTime.includes(filter) || recipeAppliance.includes(filter) || recipeUstensils.includes(filter)) {
             matchedRecipes.push(recipe);
-            recipe.style.display = "";
-        } else {
-            recipe.style.display = "none";
         }
-    }
-
-    filteredRecipes = matchedRecipes;
-    counterRecipe.textContent = `${matchedRecipes.length} recettes`;
-    // updateFilterDropdownsList(filteredRecipes);
+    });
+    displayCountRecipes(matchedRecipes.length);
+    resetRecipeDisplay();
+    matchedRecipes.forEach((recipe) => {
+        const recipeCard = document.querySelector(`[data-id="${recipe.id}"]`);
+        recipeCard.style.display = "";
+    });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
          
 function displayCountRecipes(count) {
     const counterRecipe = document.getElementById("count-recipes");
