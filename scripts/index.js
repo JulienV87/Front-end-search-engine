@@ -284,10 +284,9 @@ document.getElementById("search").addEventListener("input", debounce(filterRecip
 let filteredRecipes = [];
 
 async function filterRecipes() {
+    displayCountRecipes(); 
     const recipesFromDataBase = await getRecipesOnDemand();
     const mainSearchInput = document.getElementById("search").value.toUpperCase();
-
-
     const recipesFromPage = document.querySelectorAll(".recipe-card");
     const counterRecipe = document.getElementById("count-recipes");
     
@@ -301,7 +300,6 @@ async function filterRecipes() {
         filteredRecipes = Array.from(recipesFromPage);
     }
 
-   
     const matchedRecipes = [];
 
     for (let i = 0; i < filteredRecipes.length; i++) {
@@ -336,9 +334,16 @@ async function filterRecipes() {
 
     filteredRecipes = matchedRecipes;
     counterRecipe.textContent = `${matchedRecipes.length} recettes`;
-    // updateFilterDropdownsList(filteredRecipes);
+
+    if (filteredRecipes.length === 0) {
+        const noResult = document.getElementById("no-result");
+        noResult.textContent = `Aucune recette ne contient "${mainSearchInput}"… vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
+    }
+
 }
-         
+
+
+
 function displayCountRecipes(count) {
     const counterRecipe = document.getElementById("count-recipes");
     const noResult = document.getElementById("no-result");
@@ -347,7 +352,6 @@ function displayCountRecipes(count) {
     counterRecipe.textContent = "";
     if (count > 1) {
         counterRecipe.textContent = `${count} recettes`;
-     
         return;
     }
     if (count === 1){
@@ -356,7 +360,7 @@ function displayCountRecipes(count) {
     }
     if (count === 0) {
         noResult.textContent = `Aucune recette ne contient "${search.value}"… vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
-    return;
+        return;
   }
 }
 
