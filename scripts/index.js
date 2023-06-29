@@ -1,3 +1,5 @@
+import { getUniqueElementsForDropdownList } from "./getUniqueElementsDropdowns.js";
+
 // Récupération des données depuis le fichier JSON
 async function getRecipesOnDemand() {
     const reponse = await fetch("../data/recipes.json");
@@ -65,34 +67,9 @@ async function getRecipesInit() {
     }
     );
 
-function getUniqueElementsForDropdownList(recipes) {
-  const uniqueIngredients = new Set();
-  const uniqueAppliances = new Set();
-  const uniqueUstensils = new Set();
 
-  recipes.forEach((recipe) => {
-    recipe.ingredients.forEach((ingredient) => {
-      const ingredientName = ingredient.ingredient.toLowerCase();
-      uniqueIngredients.add(ingredientName);
-    });
 
-    const recipeAppliance = recipe.appliance.toLowerCase();
-    uniqueAppliances.add(recipeAppliance);
-
-    recipe.ustensils.forEach((ustensil) => {
-      const ustensilName = ustensil.toLowerCase();
-      uniqueUstensils.add(ustensilName);
-    });
-  });
-
-  return {
-    ingredients: Array.from(uniqueIngredients),
-    appliances: Array.from(uniqueAppliances),
-    ustensils: Array.from(uniqueUstensils)
-  };
-}
-
-function createDOMElements(uniqueElements) {
+function createDropdownsElements(uniqueElements) {
  const dropdownMenu = document.getElementById("ingredients-list");
 const dropdownMenu2 = document.getElementById("appareils-list");
 const dropdownMenu3 = document.getElementById("ustensiles-list");
@@ -132,10 +109,50 @@ const dropdownMenu3 = document.getElementById("ustensiles-list");
 }
 
 const uniqueElements = getUniqueElementsForDropdownList(recipes);
-createDOMElements(uniqueElements);
+console.log(uniqueElements); //TEST
+createDropdownsElements(uniqueElements);
+
+//créer une fonction de recherche dans la barre principale. La fonction doit uniquement servir à rechercher. On lui passer comme argument le tableau des recettes. Elle doit retourner un tableau de recettes filtrées (recipes).
 
 
-
+//Fonction de recherche dans la barre principale
+async function filterFromRecipesDataBAse() {
+    const recipesFromDataBase = await getRecipesOnDemand();
+    const mainSearchInput = document.getElementById("search").value.toUpperCase();
+    const recipecards = document.querySelectorAll(".recipe-card");
+    const counterRecipe = document.getElementById("count-recipes");
+    const noResult = document.getElementById("no-result");
+    noResult.textContent = "";
+    counterRecipe.textContent = "";
+    const matchedRecipes = [];
+    for (let i = 0; i < recipesFromDataBase.length; i++) {
+        const recipe = recipesFromDataBase[i];
+        const recipeTitle = recipe.name.toUpperCase();
+        const recipeIngredients = recipe.ingredients.map((ingredient) => {
+            if (ingredient.quantity === undefined) {
+                return ingredient.ingredient.toUpperCase();
+            }
+            if (ingredient.unit === undefined) {
+                ingredient.unit = "";
+            }
+            return `${ingredient.ingredient.toUpperCase()} : ${ingredient.quantity} ${ingredient.unit}`;
+        }).join("");
+        const recipeDescription = recipe.description.toUpperCase();
+        const recipeTime = recipe.time.toString().toUpperCase();
+        const recipeAppliance = recipe.appliance.toUpperCase();
+        const recipeUstensils = recipe.ustensils.map((ustensil) => ustensil.toUpperCase()).join("");
+        if (recipeTitle.includes(mainSearchInput) || recipeIngredients.includes(mainSearchInput) || recipeDescription.includes(mainSearchInput) || recipeTime.includes(mainSearchInput) || recipeAppliance.includes(mainSearchInput) || recipeUstensils.includes(mainSearchInput)) {
+            matchedRecipes.push(recipe);
+        }
+    }
+    console.log(matchedRecipes); //TEST
+    counterRecipe.textContent = `${matchedRecipes.length} recettes`;
+    if (matchedRecipes.length === 0) {
+        noResult.textContent = `Aucune recette ne contient "${mainSearchInput}"… vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
+    }
+    return matchedRecipes;
+}
+console.log(matchedRecipes)
 
 //Fonction de recherche dans les dropdownMenus
 function filterDropdownList() {
@@ -211,22 +228,6 @@ async function displayTag(text) {
   });
 }
 
-// async function updateFilterDropdownsList(recipes) {
-//   const dropdownMenu = document.getElementById("ingredients-list");
-//   const dropdownMenu2 = document.getElementById("appareils-list");
-//   const dropdownMenu3 = document.getElementById("ustensiles-list");
-
-//   dropdownMenu.innerHTML = "";
-//   dropdownMenu2.innerHTML = "";
-//   dropdownMenu3.innerHTML = "";
-
-//   await getFilterDropdownList(recipes);
-//   filterDropdownList();
-// }
-
-
-
-// getFilterDropdownList();
 
 }
 
@@ -341,6 +342,9 @@ async function filterRecipes() {
     }
 
 }
+
+
+
 
 
 
