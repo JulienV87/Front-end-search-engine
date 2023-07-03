@@ -1,4 +1,4 @@
-import { getUniqueElementsForDropdownList } from "./getUniqueElementsDropdowns.js";
+
 
 // Récupération des données depuis le fichier JSON
 async function getRecipesOnDemand() {
