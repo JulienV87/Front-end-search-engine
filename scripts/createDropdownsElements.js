@@ -1,7 +1,8 @@
 import { capitalize } from "./capitalize.js";
-import { displayTag } from "./app.js";
+import { displayRecipes, displayTag } from "./app.js";
 import { searchRecipesFromMainInputSearch } from "./searchRecipesFromMainInputSearch.js";
 import { dataRecipes } from "./app.js";
+import { getUniqueElementsForDropdownList } from "./getUniqueElementsDropdowns.js";
 
 
 
@@ -10,6 +11,7 @@ function createDropdownsElements(uniqueElements) {
     const dropdownMenu = document.getElementById("ingredients-list");
     const dropdownMenu2 = document.getElementById("appareils-list");
     const dropdownMenu3 = document.getElementById("ustensiles-list");
+    // const mainSearchInput = document.getElementById("main-search");
     
 
     dropdownMenu.innerHTML = "";
@@ -24,6 +26,10 @@ function createDropdownsElements(uniqueElements) {
    
        ingredientItem.addEventListener("click", function () {
         displayTag(ingredientName);
+        console.log(displayTag(ingredientName));
+        // searchRecipeByTags(ingredientName);
+        console.log(searchRecipeByTags(ingredientName));
+        
       
        });
      });
@@ -48,6 +54,7 @@ function createDropdownsElements(uniqueElements) {
    
        ustensilItem.addEventListener("click", function () {
         displayTag(ustensilName);
+        searchRecipeByTags(ustensilName);
     
        });
      });
@@ -58,3 +65,29 @@ function createDropdownsElements(uniqueElements) {
 
     export { createDropdownsElements };
     
+    function searchRecipeByTags (uniqueElements) {
+
+        const filteredRecipes = dataRecipes.filter((recipe) => {
+            if (recipe.name.toLowerCase().includes(uniqueElements)) { 
+                return recipe;
+            }
+            if (recipe.description.toLowerCase().includes(uniqueElements)) {
+                return recipe;
+            }
+            if (recipe.ingredients.find((ingredient) => ingredient.ingredient.toLowerCase().includes(uniqueElements))) {
+                return recipe;
+            }
+            if (recipe.appliance.toLowerCase().includes(uniqueElements)) {
+                return recipe;
+            }
+            if (recipe.ustensils.find((ustensil) => ustensil.toLowerCase().includes(uniqueElements))) {
+                return recipe;
+            }
+       
+        });
+        displayRecipes(filteredRecipes);
+        createDropdownsElements(getUniqueElementsForDropdownList(filteredRecipes));
+        // searchRecipesFromMainInputSearch(filteredRecipes);
+        console.log(filteredRecipes);
+    }
+        

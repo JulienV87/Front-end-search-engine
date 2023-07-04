@@ -1,6 +1,7 @@
-import { displayRecipes, displayTag } from './app.js';
+import { dataRecipes, displayRecipes } from './app.js';
 import { createDropdownsElements } from './createDropdownsElements.js';
 import { getUniqueElementsForDropdownList } from './getUniqueElementsDropdowns.js';
+
 
 
 function searchRecipesFromMainInputSearch (data) {
@@ -9,6 +10,7 @@ function searchRecipesFromMainInputSearch (data) {
 
         
     mainInputSearch.addEventListener("input", function() {
+     
         
         const inputValue = mainInputSearch.value.toLowerCase();
         console.log(inputValue);
@@ -42,6 +44,5 @@ function searchRecipesFromMainInputSearch (data) {
 export { searchRecipesFromMainInputSearch };
 
 
+ 
 
-    
-   

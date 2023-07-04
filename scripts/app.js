@@ -10,9 +10,8 @@ import { filterDropdownList } from '../filterDropdownList.js';
 
 
 
-
 export const dataRecipes = recipes;
-// console.log(dataRecipes)
+console.log(dataRecipes)
 
 
 export function displayRecipes(dataRecipes) {
@@ -82,15 +81,8 @@ searchRecipesFromMainInputSearch(dataRecipes);//Recherche des recettes depuis la
     tag.classList.add("tag");
     tag.textContent = capitalize(text);
     const counterRecipe = document.getElementById("counter-recipe");
-    
 
     //   mainSearchInput.value = tag.textContent;
-    //   searchRecipesFromMainInputSearch(dataRecipes);
-
- 
-
-      console.log(mainSearchInput.value);
-      console.log(tag.textContent);
 
     //   mainSearchInput.value = "";
   
@@ -110,13 +102,12 @@ searchRecipesFromMainInputSearch(dataRecipes);//Recherche des recettes depuis la
     closeIcon.innerHTML = "&#x2716;";
     tag.appendChild(closeIcon);
     tagDisplay.appendChild(tag);
+
   
     closeIcon.addEventListener('click', function() {
       tagDisplay.removeChild(tag);
       displayCountRecipes(recipes.length);
-    //   resetRecipeDisplay();
-    //   counterRecipe.textContent = `${recipes.length} recettes`;
-      
+      displayRecipes(recipes);
     });
   }
 
@@ -125,6 +116,7 @@ searchRecipesFromMainInputSearch(dataRecipes);//Recherche des recettes depuis la
   
 
 
+  
 
 
   
