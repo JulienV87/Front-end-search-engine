@@ -82,6 +82,7 @@ searchRecipesFromMainInputSearch(dataRecipes);//Recherche des recettes depuis la
     tag.textContent = capitalize(text);
     const counterRecipe = document.getElementById("counter-recipe");
 
+
     //   mainSearchInput.value = tag.textContent;
 
     //   mainSearchInput.value = "";
@@ -108,6 +109,7 @@ searchRecipesFromMainInputSearch(dataRecipes);//Recherche des recettes depuis la
       tagDisplay.removeChild(tag);
       displayCountRecipes(recipes.length);
       displayRecipes(recipes);
+
     });
   }
 

@@ -25,12 +25,10 @@ function createDropdownsElements(uniqueElements) {
        dropdownMenu.appendChild(ingredientItem);
    
        ingredientItem.addEventListener("click", function () {
-        displayTag(ingredientName);
-        console.log(displayTag(ingredientName));
-        // searchRecipeByTags(ingredientName);
-        console.log(searchRecipeByTags(ingredientName));
         
-      
+        displayTag(ingredientName);
+        searchRecipeByTags(ingredientName);
+        
        });
      });
    
@@ -42,6 +40,7 @@ function createDropdownsElements(uniqueElements) {
    
        applianceItem.addEventListener("click", function () {
         displayTag(recipeAppliance);
+        searchRecipeByTags(recipeAppliance);
  
        });
      });
@@ -60,14 +59,15 @@ function createDropdownsElements(uniqueElements) {
      });
      
      capitalize(uniqueElements)
-
+     
     }
 
     export { createDropdownsElements };
-    
-    function searchRecipeByTags (uniqueElements) {
 
-        const filteredRecipes = dataRecipes.filter((recipe) => {
+
+    export function searchRecipeByTags (uniqueElements) {
+   
+      const filteredRecipes = dataRecipes.filter((recipe) => {
             if (recipe.name.toLowerCase().includes(uniqueElements)) { 
                 return recipe;
             }
@@ -87,7 +87,10 @@ function createDropdownsElements(uniqueElements) {
         });
         displayRecipes(filteredRecipes);
         createDropdownsElements(getUniqueElementsForDropdownList(filteredRecipes));
-        // searchRecipesFromMainInputSearch(filteredRecipes);
-        console.log(filteredRecipes);
-    }
+        searchRecipesFromMainInputSearch(filteredRecipes);
+
+        return filteredRecipes;
+
         
+      }
+
