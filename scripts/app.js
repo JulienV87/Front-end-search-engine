@@ -85,7 +85,7 @@ searchRecipesFromMainInputSearch(dataRecipes);//Recherche des recettes depuis la
 
     //   mainSearchInput.value = tag.textContent;
 
-    //   mainSearchInput.value = "";
+    
   
       searchInputs.forEach((searchInput) => {//ici
           searchInput.value = "";
@@ -109,13 +109,14 @@ searchRecipesFromMainInputSearch(dataRecipes);//Recherche des recettes depuis la
       tagDisplay.removeChild(tag);
       displayCountRecipes(recipes.length);
       displayRecipes(recipes);
+      searchRecipesFromMainInputSearch(recipes);
+      mainSearchInput.value = "";
 
     });
   }
 
-  
+ 
 
-  
 
 
   

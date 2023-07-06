@@ -8,9 +8,9 @@ function searchRecipesFromMainInputSearch (data) {
    const mainInputSearch = document.getElementById('main-search');
     console.log(mainInputSearch);
 
+    
+    mainInputSearch.addEventListener("keyup", function() {
         
-    mainInputSearch.addEventListener("input", function() {
-     
         
         const inputValue = mainInputSearch.value.toLowerCase();
         console.log(inputValue);
@@ -32,6 +32,8 @@ function searchRecipesFromMainInputSearch (data) {
             }
        
         });
+
+        
         displayRecipes(filteredRecipes);
 
         createDropdownsElements(getUniqueElementsForDropdownList(filteredRecipes));
