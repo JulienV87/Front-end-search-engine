@@ -1,13 +1,13 @@
 import { capitalize } from "./capitalize.js";
-import { displayRecipes, displayTag } from "./app.js";
+import { displayTag } from "./app.js";
+import { displayRecipes } from './displayRecipes.js';
 import { searchRecipesFromMainInputSearch } from "./searchRecipesFromMainInputSearch.js";
-import { dataRecipes } from "./app.js";
 import { getUniqueElementsForDropdownList } from "./getUniqueElementsDropdowns.js";
 
 
 
 
-function createDropdownsElements(uniqueElements) {
+function createDropdownsElements(uniqueElements, dataRecipes) {
     const dropdownMenu = document.getElementById("ingredients-list");
     const dropdownMenu2 = document.getElementById("appareils-list");
     const dropdownMenu3 = document.getElementById("ustensiles-list");
@@ -23,14 +23,20 @@ function createDropdownsElements(uniqueElements) {
        ingredientItem.classList.add("dropdown-item");
        ingredientItem.textContent = capitalize(ingredientName);
        dropdownMenu.appendChild(ingredientItem);
-   
+      //  console.log(ingredientName);
+      
+      
        ingredientItem.addEventListener("click", function () {
         
         displayTag(ingredientName);
-        searchRecipeByTags(ingredientName);
-        
+       searchRecipeByTags(ingredientName, dataRecipes);
+       const getFilteredResultsIngredients = searchRecipeByTags(ingredientName, dataRecipes);
+       searchRecipeByTags(ingredientName, getFilteredResultsIngredients );
+        console.log(getFilteredResultsIngredients);
+  
        });
      });
+
    
      uniqueElements.appliances.forEach((recipeAppliance) => {
        const applianceItem = document.createElement("li");
@@ -40,7 +46,8 @@ function createDropdownsElements(uniqueElements) {
    
        applianceItem.addEventListener("click", function () {
         displayTag(recipeAppliance);
-        searchRecipeByTags(recipeAppliance);
+        const getFilteredResultsAppliance = searchRecipeByTags(recipeAppliance, dataRecipes);
+        searchRecipeByTags(recipeAppliance, getFilteredResultsAppliance);
  
        });
      });
@@ -53,19 +60,20 @@ function createDropdownsElements(uniqueElements) {
    
        ustensilItem.addEventListener("click", function () {
         displayTag(ustensilName);
-        searchRecipeByTags(ustensilName);
+        const getFilteredResultsUstensils = searchRecipeByTags(ustensilName, dataRecipes);
+        searchRecipeByTags(ustensilName, getFilteredResultsUstensils);
     
        });
      });
      
      capitalize(uniqueElements)
      
-    }
+}
 
-    export { createDropdownsElements };
+export { createDropdownsElements };
 
 
-    export function searchRecipeByTags (uniqueElements) {
+export function searchRecipeByTags (uniqueElements, dataRecipes) {
    
       const filteredRecipes = dataRecipes.filter((recipe) => {
             if (recipe.name.toLowerCase().includes(uniqueElements)) { 
@@ -86,11 +94,15 @@ function createDropdownsElements(uniqueElements) {
        
         });
         displayRecipes(filteredRecipes);
-        createDropdownsElements(getUniqueElementsForDropdownList(filteredRecipes));
-        searchRecipesFromMainInputSearch(filteredRecipes);
+        createDropdownsElements(getUniqueElementsForDropdownList(filteredRecipes), dataRecipes);
+        searchRecipesFromMainInputSearch(filteredRecipes, dataRecipes);
+
+        console.log(filteredRecipes);
 
         return filteredRecipes;
 
         
       }
 
+// const getFilteredRecipes = searchRecipeByTags(uniqueElements, dataRecipes);
+// console.log(getFilteredRecipes);

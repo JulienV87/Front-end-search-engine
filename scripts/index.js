@@ -1,4 +1,4 @@
-
+// not used
 
 // Récupération des données depuis le fichier JSON
 async function getRecipesOnDemand() {
@@ -69,7 +69,7 @@ async function getRecipesInit() {
 
 
 
-function createDropdownsElements(uniqueElements) {
+function createDropdownsElements(uniqueElements, dataRecipes) {
  const dropdownMenu = document.getElementById("ingredients-list");
 const dropdownMenu2 = document.getElementById("appareils-list");
 const dropdownMenu3 = document.getElementById("ustensiles-list");
@@ -110,7 +110,7 @@ const dropdownMenu3 = document.getElementById("ustensiles-list");
 
 const uniqueElements = getUniqueElementsForDropdownList(recipes);
 console.log(uniqueElements); //TEST
-createDropdownsElements(uniqueElements);
+createDropdownsElements(uniqueElements, dataRecipes);
 
 //créer une fonction de recherche dans la barre principale. La fonction doit uniquement servir à rechercher. On lui passer comme argument le tableau des recettes. Elle doit retourner un tableau de recettes filtrées (recipes).
 
