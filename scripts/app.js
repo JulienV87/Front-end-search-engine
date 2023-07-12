@@ -7,7 +7,7 @@ import { createDropdownsElements } from './createDropdownsElements.js';
 import { searchRecipesFromMainInputSearch } from './searchRecipesFromMainInputSearch.js';
 import { capitalize } from './capitalize.js';
 import { filterDropdownList } from '../filterDropdownList.js';
-
+import { mainSearch } from './mainSearch.js';
 
 
 
@@ -34,21 +34,19 @@ searchRecipesFromMainInputSearch(dataRecipes, dataRecipes);//Recherche des recet
 // console.log(searchRecipesFromMainInputSearch(dataRecipes));
  
 
-    export function displayTag(text) {
+    export function displayTag(text, dropdownName) {
     const mainSearchInput = document.getElementById("main-search");
     const searchInputs = document.querySelectorAll(".search-input");
     const dropdownItems = document.querySelectorAll(".dropdown-item");
     const tagDisplay = document.getElementById("tag-display");
     const tag = document.createElement("div");
-    tag.classList.add("tag");
+    tag.classList.add("tag", dropdownName);
     tag.textContent = capitalize(text);
+    tag.dataset.value = text;
     const counterRecipe = document.getElementById("counter-recipe");
-
 
     //   mainSearchInput.value = tag.textContent;
 
-    
-  
       searchInputs.forEach((searchInput) => {//ici
           searchInput.value = "";
       });
@@ -73,24 +71,25 @@ searchRecipesFromMainInputSearch(dataRecipes, dataRecipes);//Recherche des recet
       displayRecipes(recipes);
       searchRecipesFromMainInputSearch(recipes, dataRecipes);
       createDropdownsElements(getUniqueElementsForDropdownList(dataRecipes), dataRecipes);
-      mainSearchInput.value = "";
+    //   mainSearchInput.value = "";
 
     });
   }
 
  
 
-const mainSearch = document.querySelector("#main-search");
-mainSearch.addEventListener("search", function(event) {
+const mainSearchInput = document.querySelector("#main-search");
+mainSearchInput.addEventListener("search", function(event) {
     console.log("here1");
     searchRecipesFromMainInputSearch(dataRecipes)
 });
-mainSearch.addEventListener("keyup", function(event) {
+mainSearchInput.addEventListener("keyup", function(event) {
     console.log("here2");
     searchRecipesFromMainInputSearch(dataRecipes)
 });
 
   
 
-
-  
+document.querySelector("body > header > div.header-container > nav > div > form > img").addEventListener("click", function(event) {
+    mainSearch(dataRecipes);
+});

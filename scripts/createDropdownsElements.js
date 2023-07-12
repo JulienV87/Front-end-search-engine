@@ -3,6 +3,9 @@ import { displayTag } from "./app.js";
 import { displayRecipes } from './displayRecipes.js';
 import { searchRecipesFromMainInputSearch } from "./searchRecipesFromMainInputSearch.js";
 import { getUniqueElementsForDropdownList } from "./getUniqueElementsDropdowns.js";
+// import { displayCountRecipes } from "./displayCountRecipes.js";
+
+
 
 
 
@@ -28,7 +31,7 @@ function createDropdownsElements(uniqueElements, dataRecipes) {
       
        ingredientItem.addEventListener("click", function () {
         
-        displayTag(ingredientName);
+        displayTag(ingredientName, "ingredient");
        searchRecipeByTags(ingredientName, dataRecipes);
        const getFilteredResultsIngredients = searchRecipeByTags(ingredientName, dataRecipes);
        searchRecipeByTags(ingredientName, getFilteredResultsIngredients );
@@ -45,7 +48,7 @@ function createDropdownsElements(uniqueElements, dataRecipes) {
        dropdownMenu2.appendChild(applianceItem);
    
        applianceItem.addEventListener("click", function () {
-        displayTag(recipeAppliance);
+        displayTag(recipeAppliance, "appliance");
         const getFilteredResultsAppliance = searchRecipeByTags(recipeAppliance, dataRecipes);
         searchRecipeByTags(recipeAppliance, getFilteredResultsAppliance);
  
@@ -59,7 +62,7 @@ function createDropdownsElements(uniqueElements, dataRecipes) {
        dropdownMenu3.appendChild(ustensilItem);
    
        ustensilItem.addEventListener("click", function () {
-        displayTag(ustensilName);
+        displayTag(ustensilName, "ustensil");
         const getFilteredResultsUstensils = searchRecipeByTags(ustensilName, dataRecipes);
         searchRecipeByTags(ustensilName, getFilteredResultsUstensils);
     
@@ -104,5 +107,6 @@ export function searchRecipeByTags (uniqueElements, dataRecipes) {
         
       }
 
+     
 // const getFilteredRecipes = searchRecipeByTags(uniqueElements, dataRecipes);
 // console.log(getFilteredRecipes);
