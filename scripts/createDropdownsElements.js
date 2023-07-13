@@ -16,7 +16,6 @@ function createDropdownsElements(uniqueElements, dataRecipes) {
     const dropdownMenu3 = document.getElementById("ustensiles-list");
     // const mainSearchInput = document.getElementById("main-search");
     
-
     dropdownMenu.innerHTML = "";
     dropdownMenu2.innerHTML = "";
     dropdownMenu3.innerHTML = "";
@@ -32,7 +31,6 @@ function createDropdownsElements(uniqueElements, dataRecipes) {
        ingredientItem.addEventListener("click", function () {
         
         displayTag(ingredientName, "ingredient");
-       searchRecipeByTags(ingredientName, dataRecipes);
        const getFilteredResultsIngredients = searchRecipeByTags(ingredientName, dataRecipes);
        searchRecipeByTags(ingredientName, getFilteredResultsIngredients );
         console.log(getFilteredResultsIngredients);

@@ -8,6 +8,7 @@ import { searchRecipesFromMainInputSearch } from './searchRecipesFromMainInputSe
 import { capitalize } from './capitalize.js';
 import { filterDropdownList } from '../filterDropdownList.js';
 import { mainSearch } from './mainSearch.js';
+import { searchRecipeByTags } from './createDropdownsElements.js';
 
 
 
@@ -67,10 +68,11 @@ searchRecipesFromMainInputSearch(dataRecipes, dataRecipes);//Recherche des recet
   
     closeIcon.addEventListener('click', function() {
       tagDisplay.removeChild(tag);
-      displayCountRecipes(recipes.length);
-      displayRecipes(recipes);
+    
+    //   displayCountRecipes(recipes.length);
+    //   displayRecipes(recipes);
       searchRecipesFromMainInputSearch(recipes, dataRecipes);
-      createDropdownsElements(getUniqueElementsForDropdownList(dataRecipes), dataRecipes);
+    //   createDropdownsElements(getUniqueElementsForDropdownList(dataRecipes), dataRecipes);
     //   mainSearchInput.value = "";
 
     });
