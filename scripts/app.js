@@ -71,6 +71,7 @@ searchRecipesFromMainInputSearch(dataRecipes, dataRecipes);//Recherche des recet
     
     //   displayCountRecipes(recipes.length);
     //   displayRecipes(recipes);
+    mainSearch(dataRecipes);
       searchRecipesFromMainInputSearch(recipes, dataRecipes);
     //   createDropdownsElements(getUniqueElementsForDropdownList(dataRecipes), dataRecipes);
     //   mainSearchInput.value = "";
@@ -82,11 +83,10 @@ searchRecipesFromMainInputSearch(dataRecipes, dataRecipes);//Recherche des recet
 
 const mainSearchInput = document.querySelector("#main-search");
 mainSearchInput.addEventListener("search", function(event) {
-    console.log("here1");
     searchRecipesFromMainInputSearch(dataRecipes)
+    createDropdownsElements(getUniqueElementsForDropdownList(dataRecipes), dataRecipes);
 });
 mainSearchInput.addEventListener("keyup", function(event) {
-    console.log("here2");
     searchRecipesFromMainInputSearch(dataRecipes)
 });
 

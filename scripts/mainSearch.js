@@ -51,9 +51,7 @@ function isIngredientOk(recipe, ingredients) {
 function isApplianceOk(recipe, appliances) {
     let result = true;
     const recipeApplianceNames = [];
-    recipe.appliance.forEach((appliance) => {
-        recipeApplianceNames.push(appliance);
-    });
+    recipeApplianceNames.push(recipe.appliance);
     appliances.forEach((appliance) => {
         if (!recipeApplianceNames.includes(appliance)) {
             result = false;
@@ -121,7 +119,8 @@ function mainSearch() {
     );
     displayRecipes(filteredRecipes); // afficher les recettes de la sous liste 
     const uniqueElementsForDropdownList = getUniqueElementsForDropdownList(filteredRecipes)
-    createDropdownsElements(uniqueElementsForDropdownList, allRecipies);// afficher les ingridients restants dans la dropdown
+    console.log("here1");
+    createDropdownsElements(uniqueElementsForDropdownList, filteredRecipes);// afficher les ingridients restants dans la dropdown
     displayCountRecipes(filteredRecipes); // afficher le nombre des recettes dans la sous liste
   
     console.log(filteredRecipes);

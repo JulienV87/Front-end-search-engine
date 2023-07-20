@@ -30,7 +30,7 @@ function searchRecipesFromMainInputSearch (someRecipes, dataRecipes) {
         
         displayRecipes(filteredRecipes);
 
-        createDropdownsElements(getUniqueElementsForDropdownList(filteredRecipes), dataRecipes);
+        // createDropdownsElements(getUniqueElementsForDropdownList(filteredRecipes), dataRecipes);
         // console.log(getUniqueElementsForDropdownList(filteredRecipes));
         
 

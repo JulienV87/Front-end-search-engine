@@ -29,7 +29,6 @@ function createDropdownsElements(uniqueElements, dataRecipes) {
       
       
        ingredientItem.addEventListener("click", function () {
-        
         displayTag(ingredientName, "ingredient");
        const getFilteredResultsIngredients = searchRecipeByTags(ingredientName, dataRecipes);
        searchRecipeByTags(ingredientName, getFilteredResultsIngredients );
@@ -75,7 +74,7 @@ export { createDropdownsElements };
 
 
 export function searchRecipeByTags (uniqueElements, dataRecipes) {
-   
+      console.log("here2");
       const filteredRecipes = dataRecipes.filter((recipe) => {
             if (recipe.name.toLowerCase().includes(uniqueElements)) { 
                 return recipe;
@@ -95,7 +94,7 @@ export function searchRecipeByTags (uniqueElements, dataRecipes) {
        
         });
         displayRecipes(filteredRecipes);
-        createDropdownsElements(getUniqueElementsForDropdownList(filteredRecipes), dataRecipes);
+        // createDropdownsElements(getUniqueElementsForDropdownList(filteredRecipes), dataRecipes);
         searchRecipesFromMainInputSearch(filteredRecipes, dataRecipes);
 
         console.log(filteredRecipes);
