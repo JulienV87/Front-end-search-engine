@@ -1,13 +1,49 @@
 import { capitalize } from "./capitalize.js";
-import { displayTag } from "./app.js";
+import { mainSearch } from './mainSearch.js';
 import { displayRecipes } from './displayRecipes.js';
-import { searchRecipesFromMainInputSearch } from "./searchRecipesFromMainInputSearch.js";
 import { getUniqueElementsForDropdownList } from "./getUniqueElementsDropdowns.js";
 // import { displayCountRecipes } from "./displayCountRecipes.js";
 
 
 
+function displayTag(text, dropdownName) {
+  const mainSearchInput = document.getElementById("main-search");
+  const searchInputs = document.querySelectorAll(".search-input");
+  const dropdownItems = document.querySelectorAll(".dropdown-item");
+  const tagDisplay = document.getElementById("tag-display");
+  const tag = document.createElement("div");
+  tag.classList.add("tag", dropdownName);
+  tag.textContent = capitalize(text);
+  tag.dataset.value = text;
+  const counterRecipe = document.getElementById("counter-recipe");
 
+  //   mainSearchInput.value = tag.textContent;
+
+    searchInputs.forEach((searchInput) => {//ici
+        searchInput.value = "";
+    });
+
+    dropdownItems.forEach((dropdownItem) => {
+        dropdownItem.style.display = "";
+    });
+
+  
+  
+
+  const closeIcon = document.createElement("span");
+  closeIcon.classList.add("close-icon");
+  closeIcon.innerHTML = "&#x2716;";
+  tag.appendChild(closeIcon);
+  tagDisplay.appendChild(tag);
+
+
+  closeIcon.addEventListener('click', function() {
+    tagDisplay.removeChild(tag);
+  
+  mainSearch();
+
+  });
+}
 
 
 function createDropdownsElements(uniqueElements, dataRecipes) {
@@ -30,8 +66,7 @@ function createDropdownsElements(uniqueElements, dataRecipes) {
       
        ingredientItem.addEventListener("click", function () {
         displayTag(ingredientName, "ingredient");
-       const getFilteredResultsIngredients = searchRecipeByTags(ingredientName, dataRecipes);
-       searchRecipeByTags(ingredientName, getFilteredResultsIngredients );
+        mainSearch();
         
   
        });
@@ -46,8 +81,7 @@ function createDropdownsElements(uniqueElements, dataRecipes) {
    
        applianceItem.addEventListener("click", function () {
         displayTag(recipeAppliance, "appliance");
-        const getFilteredResultsAppliance = searchRecipeByTags(recipeAppliance, dataRecipes);
-        searchRecipeByTags(recipeAppliance, getFilteredResultsAppliance);
+        mainSearch();
  
        });
      });
@@ -60,9 +94,7 @@ function createDropdownsElements(uniqueElements, dataRecipes) {
    
        ustensilItem.addEventListener("click", function () {
         displayTag(ustensilName, "ustensil");
-        const getFilteredResultsUstensils = searchRecipeByTags(ustensilName, dataRecipes);
-        searchRecipeByTags(ustensilName, getFilteredResultsUstensils);
-    
+        mainSearch();
        });
      });
      
@@ -72,37 +104,3 @@ function createDropdownsElements(uniqueElements, dataRecipes) {
 
 export { createDropdownsElements };
 
-
-export function searchRecipeByTags (uniqueElements, dataRecipes) {
-      
-      const filteredRecipes = dataRecipes.filter((recipe) => {
-            if (recipe.name.toLowerCase().includes(uniqueElements)) { 
-                return recipe;
-            }
-            if (recipe.description.toLowerCase().includes(uniqueElements)) {
-                return recipe;
-            }
-            if (recipe.ingredients.find((ingredient) => ingredient.ingredient.toLowerCase().includes(uniqueElements))) {
-                return recipe;
-            }
-            if (recipe.appliance.toLowerCase().includes(uniqueElements)) {
-                return recipe;
-            }
-            if (recipe.ustensils.find((ustensil) => ustensil.toLowerCase().includes(uniqueElements))) {
-                return recipe;
-            }
-       
-        });
-        displayRecipes(filteredRecipes);
-        // createDropdownsElements(getUniqueElementsForDropdownList(filteredRecipes), dataRecipes);
-        searchRecipesFromMainInputSearch(filteredRecipes, dataRecipes);
-
-        
-
-        return filteredRecipes;
-
-        
-      }
-
-     
-// const getFilteredRecipes = searchRecipeByTags(uniqueElements, dataRecipes);

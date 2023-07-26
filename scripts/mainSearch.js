@@ -1,8 +1,10 @@
-import { createDropdownsElements } from './createDropdownsElements.js';
 import recipes from './dataRecipes.js';
+import { createDropdownsElements } from './createDropdownsElements.js';
 import { displayRecipes } from './displayRecipes.js';
 import { displayCountRecipes } from './displayCountRecipes.js';
 import { getUniqueElementsForDropdownList } from './getUniqueElementsDropdowns.js';
+
+
 
 function matchKeywordsInRecipeTextFields(recipe, keywords) {
     let result = false;
@@ -123,11 +125,53 @@ function mainSearch() {
     
     createDropdownsElements(uniqueElementsForDropdownList, filteredRecipes);// afficher les ingridients restants dans la dropdown
     displayCountRecipes(filteredRecipes); // afficher le nombre des recettes dans la sous liste
-  
-    
-
-    return filteredRecipes;
-
 }
 
-export { mainSearch };
+function initSearchFromSearchBar() {
+    const mainInputSearch = document.getElementById('main-search');
+    mainInputSearch.addEventListener("search", function(event) {
+        mainSearch();
+    });
+    mainInputSearch.addEventListener("keyup", function(event) {
+        const keywords = mainInputSearch.value.toLowerCase().trim();
+        if (  // keys to ignore
+                    event.key === "ArrowRight"
+                ||
+                    event.key === "ArrowLeft"
+                ||
+                    event.key === "ArrowUp"
+                ||
+                    event.key === "ArrowDown"
+                ||
+                    event.key === "End"
+                ||
+                    event.key === "Home"
+                ||
+                    event.key === "PageUp"
+                ||
+                    event.key === "PageDown"
+                ||
+                    event.key === "Shift"
+                ||
+                    event.key === "Control"
+                ||
+                    event.key === "Alt"
+                ||
+                    event.key === "AltGraph"
+                ||
+                    event.key === "CapsLock"
+                ||
+                    event.key === "Meta"
+                ||
+                    event.key == "Enter"  // cas deja couvert par evenement search
+            ) {
+                // avoid reloading if user navigates search input
+            } else if (event.key == "Space") {
+                mainSearch();
+            } else if (keywords.length > 2) {
+                mainSearch();
+            }
+    });
+}
+
+export { mainSearch, initSearchFromSearchBar };
