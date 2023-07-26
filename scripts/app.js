@@ -13,7 +13,6 @@ import { searchRecipeByTags } from './createDropdownsElements.js';
 
 
 const dataRecipes = recipes;
-console.log(dataRecipes)
 
 
 
@@ -22,7 +21,7 @@ displayRecipes(dataRecipes); //Affichage des recettes
 
 const uniqueElementsForDropdownList = getUniqueElementsForDropdownList(dataRecipes);//Récupération des éléments uniques pour les dropdowns
 
-// console.log(getUniqueElementsForDropdownList(dataRecipes));
+
 
 createDropdownsElements(uniqueElementsForDropdownList, dataRecipes);//Affichage des dropdowns
 
@@ -32,7 +31,7 @@ filterDropdownList();//Filtrage des dropdowns
 
 searchRecipesFromMainInputSearch(dataRecipes, dataRecipes);//Recherche des recettes depuis la barre de recherche principale
 
-// console.log(searchRecipesFromMainInputSearch(dataRecipes));
+
  
 
     export function displayTag(text, dropdownName) {
@@ -57,7 +56,7 @@ searchRecipesFromMainInputSearch(dataRecipes, dataRecipes);//Recherche des recet
       });
   
     
-    console.log(tag.textContent); //TEST
+    
   
     const closeIcon = document.createElement("span");
     closeIcon.classList.add("close-icon");

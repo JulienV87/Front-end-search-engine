@@ -38,20 +38,21 @@ function isIngredientOk(recipe, ingredients) {
     let result = true;
     const recipeIngredientNames = [];
     recipe.ingredients.forEach((ingredient) => {
-        recipeIngredientNames.push(ingredient.ingredient);
+        recipeIngredientNames.push(ingredient.ingredient.toLowerCase());
     });
     ingredients.forEach((ingredient) => {
         if (!recipeIngredientNames.includes(ingredient)) {
             result = false;
         }
     });
+   
     return result;
 }
 
 function isApplianceOk(recipe, appliances) {
     let result = true;
     const recipeApplianceNames = [];
-    recipeApplianceNames.push(recipe.appliance);
+    recipeApplianceNames.push(recipe.appliance.toLowerCase());
     appliances.forEach((appliance) => {
         if (!recipeApplianceNames.includes(appliance)) {
             result = false;
@@ -64,7 +65,7 @@ function isUstensilOk(recipe, ustensils) {
     let result = true;
     const recipeUstensilNames = [];
     recipe.ustensils.forEach((ustensil) => {
-        recipeUstensilNames.push(ustensil);
+        recipeUstensilNames.push(ustensil.toLowerCase());
     });
     ustensils.forEach((ustensil) => {
         if (!recipeUstensilNames.includes(ustensil)) {
@@ -77,7 +78,7 @@ function isUstensilOk(recipe, ustensils) {
 
 function mainSearch() {
     const allRecipies = recipes;  // simule un appel vers le serveur
-    console.log("mainSearch");
+    
     let keywords;
     const ingredients = [];
     const appliances = [];
@@ -91,19 +92,19 @@ function mainSearch() {
     ingredientTags.forEach(ingredientTag => {
         ingredients.push(ingredientTag.dataset.value);
     });
-    console.log(ingredients)
+    
 
     const applianceTags = document.querySelectorAll(".tag.appliance");
     applianceTags.forEach(applianceTag => {
         appliances.push(applianceTag.dataset.value);
     });
-    console.log(appliances)
+    
 
     const ustensilTags = document.querySelectorAll(".tag.ustensil");
     ustensilTags.forEach(ustensilTag => {
         ustensils.push(ustensilTag.dataset.value);
     });
-    console.log(ustensils)
+    
 
 
     const filteredRecipes = allRecipies.filter((recipe) => {
@@ -119,11 +120,11 @@ function mainSearch() {
     );
     displayRecipes(filteredRecipes); // afficher les recettes de la sous liste 
     const uniqueElementsForDropdownList = getUniqueElementsForDropdownList(filteredRecipes)
-    console.log("here1");
+    
     createDropdownsElements(uniqueElementsForDropdownList, filteredRecipes);// afficher les ingridients restants dans la dropdown
     displayCountRecipes(filteredRecipes); // afficher le nombre des recettes dans la sous liste
   
-    console.log(filteredRecipes);
+    
 
     return filteredRecipes;
 

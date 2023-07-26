@@ -2,7 +2,7 @@ function toggleDropdown() {
     const dropdowns = document.querySelectorAll('.dropdown');
     const searchInput = document.querySelectorAll('.search-input');
     const dropdownItems = document.querySelectorAll('.dropdown-item');
-    // console.log(dropdownItems); //TEST
+    
   
     dropdownItems.innerHTML = "";
     

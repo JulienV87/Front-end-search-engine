@@ -1,5 +1,5 @@
 function displayCountRecipes(data) {
-    console.log("displayCountRecipes")
+    
     const countRecipes = document.getElementById('count-recipes');
     const noResult = document.getElementById('no-result');
     countRecipes.innerHTML = '';

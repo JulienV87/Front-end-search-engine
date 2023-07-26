@@ -25,14 +25,14 @@ function createDropdownsElements(uniqueElements, dataRecipes) {
        ingredientItem.classList.add("dropdown-item");
        ingredientItem.textContent = capitalize(ingredientName);
        dropdownMenu.appendChild(ingredientItem);
-      //  console.log(ingredientName);
+      
       
       
        ingredientItem.addEventListener("click", function () {
         displayTag(ingredientName, "ingredient");
        const getFilteredResultsIngredients = searchRecipeByTags(ingredientName, dataRecipes);
        searchRecipeByTags(ingredientName, getFilteredResultsIngredients );
-        console.log(getFilteredResultsIngredients);
+        
   
        });
      });
@@ -74,7 +74,7 @@ export { createDropdownsElements };
 
 
 export function searchRecipeByTags (uniqueElements, dataRecipes) {
-      console.log("here2");
+      
       const filteredRecipes = dataRecipes.filter((recipe) => {
             if (recipe.name.toLowerCase().includes(uniqueElements)) { 
                 return recipe;
@@ -97,7 +97,7 @@ export function searchRecipeByTags (uniqueElements, dataRecipes) {
         // createDropdownsElements(getUniqueElementsForDropdownList(filteredRecipes), dataRecipes);
         searchRecipesFromMainInputSearch(filteredRecipes, dataRecipes);
 
-        console.log(filteredRecipes);
+        
 
         return filteredRecipes;
 
@@ -106,4 +106,3 @@ export function searchRecipeByTags (uniqueElements, dataRecipes) {
 
      
 // const getFilteredRecipes = searchRecipeByTags(uniqueElements, dataRecipes);
-// console.log(getFilteredRecipes);

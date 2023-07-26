@@ -6,9 +6,9 @@ import { getUniqueElementsForDropdownList } from './getUniqueElementsDropdowns.j
 
 function searchRecipesFromMainInputSearch (someRecipes, dataRecipes) {
    const mainInputSearch = document.getElementById('main-search');
-    console.log(mainInputSearch);
+    
     const inputValue = mainInputSearch.value.toLowerCase();
-    console.log(inputValue);
+    
     const filteredRecipes = someRecipes.filter((recipe) => {
         if (recipe.name.toLowerCase().includes(inputValue)) { 
             return recipe;
@@ -23,15 +23,21 @@ function searchRecipesFromMainInputSearch (someRecipes, dataRecipes) {
             return recipe;
         }
         if (recipe.ustensils.find((ustensil) => ustensil.toLowerCase().includes(inputValue))) {
+        
             return recipe;
         }
     });
 
         
         displayRecipes(filteredRecipes);
+        console.log("*********nouvelle recherche ici**********")
+        filteredRecipes.forEach((recipe) => {
+            console.log(recipe.ustensils);
+        });
+
 
         // createDropdownsElements(getUniqueElementsForDropdownList(filteredRecipes), dataRecipes);
-        // console.log(getUniqueElementsForDropdownList(filteredRecipes));
+        
         
 
 
