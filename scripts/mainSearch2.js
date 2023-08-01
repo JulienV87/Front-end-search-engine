@@ -78,7 +78,7 @@ function isUstensilOk(recipe, ustensils) {
 }
 
 
-function mainSearch() {
+function mainSearch2() {
     const allRecipies = recipes;  // simule un appel vers le serveur
     
     let keywords;
@@ -125,7 +125,7 @@ function mainSearch() {
 function initSearchFromSearchBar() {
     const mainInputSearch = document.getElementById('main-search');
     mainInputSearch.addEventListener("search", function(event) {
-        mainSearch();
+        mainSearch2();
     });
     mainInputSearch.addEventListener("keyup", function(event) {
         const keywords = mainInputSearch.value.toLowerCase().trim();
@@ -162,11 +162,11 @@ function initSearchFromSearchBar() {
             ) {
                 // avoid reloading if user navigates search input
             } else if (event.key == "Space") {
-                mainSearch();
+                mainSearch2();
             } else if (keywords.length > 2) {
-                mainSearch();
+                mainSearch2();
             }
     });
 }
 
-export { mainSearch, initSearchFromSearchBar };
+export { mainSearch2, initSearchFromSearchBar };

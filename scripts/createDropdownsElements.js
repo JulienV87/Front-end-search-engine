@@ -1,5 +1,5 @@
 import { capitalize } from "./capitalize.js";
-import { mainSearch } from './mainSearch.js';
+import { mainSearch2 } from './mainSearch2.js';
 import { displayRecipes } from './displayRecipes.js';
 import { getUniqueElementsForDropdownList } from "./getUniqueElementsDropdowns.js";
 // import { displayCountRecipes } from "./displayCountRecipes.js";
@@ -40,7 +40,7 @@ function displayTag(text, dropdownName) {
   closeIcon.addEventListener('click', function() {
     tagDisplay.removeChild(tag);
   
-  mainSearch();
+  mainSearch2();
 
   });
 }
@@ -66,7 +66,7 @@ function createDropdownsElements(uniqueElements, dataRecipes) {
       
        ingredientItem.addEventListener("click", function () {
         displayTag(ingredientName, "ingredient");
-        mainSearch();
+        mainSearch2();
         
   
        });
@@ -81,7 +81,7 @@ function createDropdownsElements(uniqueElements, dataRecipes) {
    
        applianceItem.addEventListener("click", function () {
         displayTag(recipeAppliance, "appliance");
-        mainSearch();
+        mainSearch2();
  
        });
      });
@@ -94,7 +94,7 @@ function createDropdownsElements(uniqueElements, dataRecipes) {
    
        ustensilItem.addEventListener("click", function () {
         displayTag(ustensilName, "ustensil");
-        mainSearch();
+        mainSearch2();
        });
      });
      
