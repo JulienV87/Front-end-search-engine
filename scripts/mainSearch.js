@@ -86,28 +86,23 @@ function mainSearch() {
     const appliances = [];
     const ustensils = [];
 
-
     const mainInputSearch = document.getElementById('main-search');
     keywords = mainInputSearch.value.toLowerCase().trim();
 
     const ingredientTags = document.querySelectorAll(".tag.ingredient");
-    ingredientTags.forEach(ingredientTag => {
-        ingredients.push(ingredientTag.dataset.value);
-    });
-    
+    for (let i = 0; i < ingredientTags.length; i++) {
+        ingredients.push(ingredientTags[i].dataset.value);
+    }
 
     const applianceTags = document.querySelectorAll(".tag.appliance");
-    applianceTags.forEach(applianceTag => {
-        appliances.push(applianceTag.dataset.value);
-    });
-    
+    for (let i = 0; i < applianceTags.length; i++) {
+        appliances.push(applianceTags[i].dataset.value);
+    }
 
     const ustensilTags = document.querySelectorAll(".tag.ustensil");
-    ustensilTags.forEach(ustensilTag => {
-        ustensils.push(ustensilTag.dataset.value);
-    });
-    
-
+    for (let i = 0; i < ustensilTags.length; i++) {
+        ustensils.push(ustensilTags[i].dataset.value);
+    }
 
     const filteredRecipes = allRecipies.filter((recipe) => {
         let keywordsOk = isKeywordsOk(recipe, keywords);
@@ -118,12 +113,12 @@ function mainSearch() {
         if (keywordsOk && ingredientOk && applianceOk && ustensilOk) {
             return recipe;
         }
-    }
-    );
+    });
+
     displayRecipes(filteredRecipes); // afficher les recettes de la sous liste 
     const uniqueElementsForDropdownList = getUniqueElementsForDropdownList(filteredRecipes)
     
-    createDropdownsElements(uniqueElementsForDropdownList, filteredRecipes);// afficher les ingridients restants dans la dropdown
+    createDropdownsElements(uniqueElementsForDropdownList, filteredRecipes); // afficher les ingridients restants dans la dropdown
     displayCountRecipes(filteredRecipes); // afficher le nombre des recettes dans la sous liste
 }
 
