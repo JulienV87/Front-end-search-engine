@@ -104,16 +104,19 @@ function mainSearch2() {
         ustensils.push(ustensilTags[i].dataset.value);
     }
 
-    const filteredRecipes = allRecipies.filter((recipe) => {
+    const filteredRecipes = [];
+    for (let i = 0; i < allRecipies.length; i++) {
+        const recipe = allRecipies[i];
         let keywordsOk = isKeywordsOk(recipe, keywords);
         let ingredientOk = isIngredientOk(recipe, ingredients);
         let applianceOk = isApplianceOk(recipe, appliances);
         let ustensilOk = isUstensilOk(recipe, ustensils);
-
+    
         if (keywordsOk && ingredientOk && applianceOk && ustensilOk) {
-            return recipe;
+            filteredRecipes.push(recipe);
         }
-    });
+    }
+    
 
     displayRecipes(filteredRecipes); // afficher les recettes de la sous liste 
     const uniqueElementsForDropdownList = getUniqueElementsForDropdownList(filteredRecipes)
