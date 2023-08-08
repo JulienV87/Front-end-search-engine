@@ -20,6 +20,7 @@ html {
     line-height: 4.5rem;
 }
 
+
  .recipe-card__title{
     font-family: Anton;
     font-weight: 400;
@@ -104,9 +105,6 @@ html {
     align-items: center;
    }
 
-   .recipe-card__appliance, .ingredient-list, .recipe-card__ustensils{
-    /* display: none; */
-   }
 
 /*--------------------------*/
   /* Dropdown */
@@ -230,7 +228,7 @@ html {
     white-space: nowrap;
   }
   
-  .dropdown2.active .dropdown-menu .dropdown-item:hover {
+  .dropdown.active .dropdown-menu .dropdown-item:hover {
     background-color: #FFD15B;
     width: 100%;
   }

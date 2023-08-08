@@ -27,7 +27,7 @@ function displayRecipes(dataRecipes) {
                             if (ingredient.unit === undefined) {
                                 ingredient.unit = "";
                             }
-                            return `<li>${ingredient.ingredient} : ${ingredient.quantity} ${ingredient.unit}</li>`;
+                            return `<li>${ingredient.ingredient} : <span class="ingredients-unit-font">${ingredient.quantity} ${ingredient.unit}</span></li>`;
                         })
                         .join("")}
                 </ul>
