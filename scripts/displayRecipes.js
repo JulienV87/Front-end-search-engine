@@ -7,9 +7,9 @@ function displayRecipes(dataRecipes) {
         const recipeCard = document.createElement('div');
         recipeCard.classList.add("recipe-card","col-8","col-sm-6","col-md-4","mx-","my-3");
         recipeCard.innerHTML = `
-        <div style="height: 565px;" class=" card-header my-2 mx-3 shadow rounded-4 bg-white text-dark recipe-card__container overflow-hidden">
+        <div  class="card-header my-2 mx-3 shadow rounded-4 bg-white text-dark recipe-card__container overflow-hidden">
             <div class="image-container position-relative">
-                <img class="card-img-top object-fit-cover" style="height:253px; rounded-top  overflow-hidden" src="./assets/images/${recipe.image}" alt="${recipe.name} style="height:280px;">
+                <img class="card-img-top object-fit-cover rounded-top  overflow-hidden" src="./assets/images/${recipe.image}" alt="${recipe.name}">
                 <p class="recipe-card__time position-absolute top-0 end-0 px-3 m-3 bg-warning rounded-5"> ${recipe.time}min</p>
             </div>
             <div class="card-body card-text px-3">

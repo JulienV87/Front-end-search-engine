@@ -20,12 +20,19 @@ html {
     line-height: 4.5rem;
 }
 
-
  .recipe-card__title{
     font-family: Anton;
     font-weight: 400;
     font-size: 1.8rem;
     padding-top: 2rem;
+}
+
+.recipe-card__container{
+  height: 500px;
+}
+
+.recipe-card__container img{
+  height: 180px;
 }
 
 .h3-title {
