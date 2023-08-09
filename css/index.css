@@ -56,6 +56,9 @@ html {
   color: #7A7A7A;
 }
 
+#ingredients-list, #appareils-list, #ustensiles-list{
+  padding: 0px;
+}
 
 .container-recipes{
   width: 95%;
